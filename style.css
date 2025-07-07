@@ -17,7 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
+picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
@@ -33,6 +33,7 @@ p, h1, h2, h3, h4, h5, h6 {
 p {
   text-wrap: pretty;
 }
+
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
@@ -60,7 +61,7 @@ html, body {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-}
+} 
 
 .wip {
   font-size: 20px;
