@@ -84,7 +84,7 @@ dialog {
   border: none;
   outline: none;
   box-shadow: 0 0 20px lightblue;
-  padding: 5px;
+  padding: 0;
 }
 
 #h80h {
