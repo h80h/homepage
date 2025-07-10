@@ -71,3 +71,19 @@ html, body {
 .subdomain {
   line-height: 0.;
 }
+
+#h80h_thumbnail {
+  cursor: help;
+}
+
+dialog {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  overflow: hidden;
+}
+
+#h80h {
+  width: 100%;
+  height: 100%;
+}
