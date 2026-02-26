@@ -1,1 +1,5 @@
 .vercel
+blog-source/
+node_modules/
+blog/
+.DS_Store

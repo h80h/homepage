@@ -1,0 +1,18 @@
+{
+  "name": "h80h-homepage",
+  "version": "1.0.0",
+  "description": "Personal homepage and Obsidian-powered blog",
+  "scripts": {
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy",
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy"
+  },
+  "author": "h80h",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.2",
+    "markdown-it": "^14.1.0",
+    "markdown-it-obsidian": "^0.2.0"
+  }
+}
