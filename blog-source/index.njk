@@ -1,0 +1,14 @@
+---
+title: "hedi's blog"
+eleventyExcludeFromCollections: true
+---
+
+<h1>All Categories</h1>
+
+{# This loops through EVERY post in the 'posts' collection #}
+{% for post in collections.posts | reverse %}
+  <article>
+    <small>{{ post.data.category_name }}</small>
+    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+  </article>
+{% endfor %}

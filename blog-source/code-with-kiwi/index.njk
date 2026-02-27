@@ -1,0 +1,21 @@
+---
+title: "Code with Kiwi"
+eleventyExcludeFromCollections: true
+---
+
+<section class="category-header">
+    <h1>{{ title }}</h1>
+    <p>All my technical notes and coding adventures.</p>
+</section>
+
+<ul class="post-list">
+  {# We loop through the 'coding' tag we defined in the JSON file #}
+  {% for post in collections.coding | reverse %}
+    <li class="post-item">
+        <time>{{ post.date | postDate }}</time>
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+    </li>
+  {% else %}
+    <li>No posts found in this category yet!</li>
+  {% endfor %}
+</ul>

@@ -1,5 +1,5 @@
 .vercel
-blog-source/
+.obsidian/
 node_modules/
 blog/
 .DS_Store
