@@ -1,14 +1,27 @@
 ---
 title: "hedi's blog"
-eleventyExcludeFromCollections: true
+category_name: "root"
 ---
+<div class="blog-title">{{ title }}</div>
+<section class="category-header">
+    <p>/* powered by teddy's hug */</p>
+</section>
 
-<h1>All Categories</h1>
-
-{# This loops through EVERY post in the 'posts' collection #}
-{% for post in collections.posts | reverse %}
-  <article>
-    <small>{{ post.data.category_name }}</small>
-    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
-  </article>
-{% endfor %}
+<ul class="post-list">
+  {# This loops through EVERY post in the 'posts' collection #}
+  {% for post in collections.posts | reverse %}
+    <li class="post-item">
+      {% if post.data.category_name == "hedi's coding" %}
+        <a class="category category--code" href="/code/">CODE!</a>
+      {% elif post.data.category_name == "hedi's daily" %}
+        <a class="category category--daily" href="/daily/">DAILY</a>
+      {% else %}
+        <div class="category">{{ post.data.category_name }}</div>
+      {% endif %}
+      <div class="post-title">{{ post.data.title }}</div>
+      <time class="date">{{ post.data.date | postDate }}</time>
+      <p class="post-preview">{{ post.templateContent | contentPreview(30) }}</p>
+      <a class="read-more" href="{{ post.url }}">ʕ reᴥadʔっ</a>
+    </li>
+  {% endfor %}
+</ul>

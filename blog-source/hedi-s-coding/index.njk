@@ -1,20 +1,20 @@
 ---
-title: "hedi's daily"
+title: "hedi's coding"
 category_name: "root"
 layout: "blog-layout.html"
-permalink: /daily/index.html
+permalink: /code/index.html
 ---
 <div class="blog-title">{{ title }}</div>
 <section class="category-header">
-    <p>/* powered by love & hope */</p>
+    <p>/* powered by curiosity */</p>
 </section>
 
 <ul class="post-list">
-  {# We loop through the 'hedi-s-daily' tag we defined in the JSON file #}
-  {% for post in collections["hedi-s-daily"] | reverse %}
+  {# We loop through the 'hedi-s-coding' tag we defined in the JSON file #}
+  {% for post in collections["hedi-s-coding"] | reverse %}
     <li class="post-item">
-      <a class="category category--daily" href="/daily/index.html">DAILY</a>
-      <div class="post-title post-title--daily">{{ post.data.title }}</div>
+      <a class="category category--code" href="/code/">CODE!</a>
+      <div class="post-title post-title--code">{{ post.data.title }}</div>
       <time class="date">{{ post.data.date | postDate }}</time>
       <p class="post-preview">{{ post.templateContent | contentPreview(30) }}</p>
       <a class="read-more" href="{{ post.url }}">ʕ reᴥadʔっ</a>
