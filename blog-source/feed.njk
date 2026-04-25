@@ -29,7 +29,7 @@ metadata:
     <id>{{ absolutePostUrl }}</id>
     <category term="{{ post.data.category_name }}" />
     <content xml:base="{{ absolutePostUrl }}" type="html">
-      {{ post.templateContent | stripFirstH1 | htmlToAbsoluteUrls(absolutePostUrl) }}
+      {{ post.templateContent | stripFirstH1 | stripPlayground | htmlToAbsoluteUrls(absolutePostUrl) }}
     </content>
   </entry>
   {%- endfor %}

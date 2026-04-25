@@ -71,6 +71,15 @@ module.exports = function (eleventyConfig) {
     return content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, "");
   });
 
+  // STRIP PLAYGROUND FILTER (for RSS feed)
+  eleventyConfig.addFilter("stripPlayground", (content) => {
+    if (!content) return "";
+    return content.replace(
+      /<pre><code class="language-playground">[\s\S]*?<\/code><\/pre>/g,
+      "",
+    );
+  });
+
   // PLAYGROUND TRANSFORM
   eleventyConfig.addTransform("playground-embed", function (content) {
     if (
@@ -304,4 +313,4 @@ module.exports = function (eleventyConfig) {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
   };
-};
+};;
