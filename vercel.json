@@ -1,4 +1,13 @@
 {
+  "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": false,
+  
+  "redirects": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon/favicon.ico",
+      "permanent": true
+    }
+  ]
 }
