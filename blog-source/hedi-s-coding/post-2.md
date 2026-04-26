@@ -1,12 +1,12 @@
 ---
-title: Object and Object Constructors
+title: Code Playground Test, Image Test
 date: 2026-02-27
-modified: 2026-04-23
+modified: 2026-04-26
 ---
-# Object and Object Constructors
+# Code Playground Test, Image Test
 
 now let me test how the verdana font works when it's a `<p>` element
-測試中文 `<li>`
+測試中文
 
 ```playground
 ---html---
@@ -74,7 +74,7 @@ function setTheme() {
 
 document.querySelector('.theme-toggle').addEventListener('click', setTheme)
 ```
-## test the pagefind
+## 
 
 ```playground
 ---html---
