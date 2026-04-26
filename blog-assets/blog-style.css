@@ -1,0 +1,407 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* Prevent scrollbar appearing/disappearing from shifting the body */
+html {
+  overflow-y: scroll;
+}
+
+:root {
+  --pagefind-ui-scale: 0.7;
+}
+
+@font-face {
+  font-family: 'jbmono';
+  src: url('/blog/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'barlow_condensedregular';
+  src: url('/blog/fonts/barlowcondensed-regular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+body {
+  width: 700px;
+  margin: 0 auto;
+  background: #F2F2EC;
+  color: #0D314B;
+  font-family: Verdana, Tahoma, sans-serif;
+  cursor: default;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+a {
+  color: #5151ff;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #5151ff;;
+}
+
+a:hover {
+  color: rgb(101, 156, 173);
+}
+
+h1 {
+  font-size: 20px;
+}
+
+header {
+  z-index: 100;
+  position: sticky;
+  top: 0;
+  background-image: radial-gradient(#bcbfff 1px, #eeeef9 1px);
+  background-size: 5px 5px;
+}
+
+.nav-search-wrap {
+  position: relative;
+  /* ← positioning context for BOTH nav and #search */
+  display: flex;
+  align-items: center;
+  padding: 3px 5px 3px 10px;
+  width: 700px;
+}
+
+main {
+  padding: 0 10px;
+}
+
+#search {
+  width: 130px;
+  cursor: text;
+  position: absolute;
+  top: 5px;
+  right: 3px;
+}
+
+nav {
+  color: #5151ff;
+  font-size: 16px;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
+}
+
+.breadcrumb-symbol {
+  padding: 0 2px;
+}
+
+/* Pagefind widget fits inside the header */
+.pagefind-ui {
+  font-family: sans-serif !important;
+}
+
+.pagefind-ui__search-input {
+  height: 20px !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  padding: 0 0 0 22px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 10px !important;
+}
+
+.pagefind-ui__search-input:focus {
+  outline: none !important;
+  /* removes the blue glow */
+  /* border-color: #a9c8db !important; */
+  /* your own border color */
+}
+
+.pagefind-ui__search-clear,
+.pagefind-ui__result-thumb {
+  display: none !important;
+}
+
+.pagefind-ui__form::before {
+  top: 5.5px !important;
+  left: 8px !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+/* THIS IS THE KEY PART: results float as overlay, don't stretch the header */
+.pagefind-ui__drawer {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  width: 210px;
+  max-height: 215px;
+  /* limit height so it doesn't go off screen */
+  overflow-y: auto;
+  /* scroll inside the dropdown instead */
+  background: #fff59d;
+  color: #0D314B;
+  border: 1px solid #ccc;
+  z-index: 999;
+}
+
+/* 1. Increase the overall width to make room for the "margin" */
+.pagefind-ui__drawer::-webkit-scrollbar {
+  width: 8px;
+  /* e.g., 4px visual thumb + 4px left border + 4px right border */
+}
+
+.pagefind-ui__drawer::-webkit-scrollbar-track {
+  background: #fff59d;
+}
+
+/* 2. Modify the thumb to use the border/clip trick */
+.pagefind-ui__drawer::-webkit-scrollbar-thumb {
+  background-color: #afc7d6;
+  /* Note: use background-color instead of just background */
+  border-radius: 5px;
+
+  /* --- The Margin Trick --- */
+  border: 3px solid transparent;
+  /* This acts as your "margin" */
+  background-clip: padding-box;
+  /* This stops the background color from bleeding into the border */
+}
+
+.pagefind-ui__drawer::-webkit-scrollbar-thumb:hover {
+  background-color: #94b1c3;
+}
+
+.pagefind-ui__message {
+  padding: 0 0 8px 0 !important;
+  font-size: 12px !important;
+}
+
+.pagefind-ui__results-area {
+  min-width: unset !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  padding: 8px 6px 8px 8px !important;
+}
+
+.pagefind-ui__result {
+  padding: 5px 0 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.pagefind-ui__result:last-of-type {
+  border-bottom: none !important;
+}
+
+.pagefind-ui__result-inner {
+  margin-top: 0 !important;
+}
+
+.pagefind-ui__result-excerpt {
+  font-size: 12px !important;
+  min-width: 0;
+}
+
+.pagefind-ui__result-excerpt mark {
+  background: #e5eef4 !important;
+  color: #0D314B !important;
+}
+
+.pagefind-ui__result-title {
+  font-size: 12px !important;
+}
+
+.pagefind-ui__result-link {
+  color: #0D314B !important;
+}
+
+.pagefind-ui__button {
+  margin-top: 14px !important;
+  border: none !important;
+  padding: 0 !important;
+  text-decoration: underline;
+  background: none !important;
+  height: unset !important;
+}
+
+.blog-title {
+  /* font-size: 38px; */
+  font-size: 36px;
+  font-family: 'barlow_condensedregular';
+  margin-top: 15px;
+  text-align: center;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-title {
+  color: rgba(13, 49, 75, 0.8);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.post-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  min-width: 80px;
+  color: rgba(13, 49, 75, 0.7);
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.category {
+  color: #F2F2EC !important;
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 9px;
+  width: 36px;
+  margin-bottom: 15px;
+}
+
+.category--code {
+  background: #78b0b4;
+}
+
+.category--daily {
+  background: #ec966f;
+}
+
+.post-preview {
+  font-size: 16px;
+}
+
+.read-more {
+  font-size: 16px;
+  align-self: flex-end;
+  font-family: 'jbmono';
+  margin: 20px 0;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
+}
+
+.category-header {
+  margin-bottom: 20px;
+}
+
+.category-header p {
+  font-size: 13px;
+  font-family: 'jbmono';
+  opacity: 0.5;
+  font-weight: bold;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+@media(max-width: 640px) {
+  body {
+    max-width: 100vw;
+  }
+
+  header {
+    display: block;
+  }
+
+  .nav-search-wrap {
+    max-width: 100vw;
+  }
+
+  #search {
+    width: 120px;
+  }
+
+  .category-concainer {
+    margin-bottom: -0.5px;
+    margin-top: unset;
+  }
+
+  .category {
+    font-size: 10px;
+    width: 42px;
+  }
+}
+
+@media(max-width: 326px) {
+  .post-preview {
+    font-size: 15px;
+  }
+}

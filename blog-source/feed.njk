@@ -1,6 +1,8 @@
 ---
 permalink: "feed.xml"
 eleventyExcludeFromCollections: true
+category_name: "feed"
+layout: false
 metadata:
   title: "hedi's blog"
   language: "en"
@@ -11,13 +13,12 @@ metadata:
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="{{ metadata.url }}">
   <title>{{ metadata.title }}</title>
-  <subtitle>{{ metadata.subtitle }}</subtitle>
   <link href="{{ permalink | absoluteUrl(metadata.url) }}" rel="self"/>
   <link href="{{ metadata.url }}"/>
   <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
   <id>{{ metadata.url }}</id>
   <author>
-    <name>{{ metadata.author.name }}</name>
+    <n>{{ metadata.author.name }}</n>
   </author>
   {%- for post in collections.posts | reverse %}
   {%- set absolutePostUrl = post.url | absoluteUrl(metadata.url) %}
@@ -26,12 +27,9 @@ metadata:
     <link href="{{ absolutePostUrl }}"/>
     <updated>{{ post.date | dateToRfc3339 }}</updated>
     <id>{{ absolutePostUrl }}</id>
-    
-    {# ADD THIS LINE: It shows the category in RSS readers #}
     <category term="{{ post.data.category_name }}" />
-
     <content xml:base="{{ absolutePostUrl }}" type="html">
-      {{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}
+      {{ post.templateContent | stripFirstH1 | stripPlayground | htmlToAbsoluteUrls(absolutePostUrl) }}
     </content>
   </entry>
   {%- endfor %}

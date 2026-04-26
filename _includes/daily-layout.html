@@ -2,15 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} • hedi's blog</title>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
     <link rel="stylesheet" href="/blog-assets/daily-style.css">
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="hedi's blog" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
 </head>
-<body class="daily-theme">
+<body class="daily-theme" data-tags="{{ tags | join(' ') }}">
     <header>
-        <a href="/blog">← Back to h80h.xyz/blog</a>
+        <div class="nav-search-wrap">
+          <nav>
+            <div class="nav-top-container">
+              <a href="/blog/">blog</a>
+              <span class="breadcrumb-symbol">›</span>
+              <a href="/{{ category_url }}/">{{ category_folder }}</a>
+            </div>
+            <div class="nav-bottom-container">
+              <span class="breadcrumb-symbol">›</span>
+              <span class="post-title-nav">{{ title }}</span>
+            </div>
+          </nav>
+          <div id="search"></div>
+        </div>
     </header>
     <main>
+        <p class="date">{{page.date | postDate}}</p>
         {{ content | safe }}
     </main>
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <script src="/blog-assets/share.js"></script>
 </body>
 </html>

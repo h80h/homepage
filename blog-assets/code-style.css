@@ -123,6 +123,16 @@ a:visited {
   color: #5151ff;
 }
 
+code {
+  font-family: Verdana;
+  background-color: #EBEBEB !important;
+  color: #B8382F;
+  padding: 1px 1px;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+  font-size: 13px;
+}
+
 a:hover {
   color: rgb(101, 156, 173);
 }
@@ -308,6 +318,34 @@ nav {
 p {
   margin-top: 1em;
   font-size: 16px;
+}
+
+.ace_scrollbar-h {
+  height: 8px !important;
+}
+
+.ace_scrollbar-h .ace_scrollbar-inner {
+  height: 8px !important;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar {
+  height: 8px;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar-thumb {
+  background-color: #afc7d6;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar-thumb:hover {
+  background-color: #94b1c3;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 @media(max-width: 640px) {
