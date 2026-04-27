@@ -300,12 +300,10 @@ nav {
 
 .blog-title {
   /* font-size: 36px; */
-  font-size: 28px;
+  font-size: 24px;
   font-family: 'barlow_condensedregular';
   text-align: center;
-  margin-bottom: 3px;
   color: rgb(110, 110, 179);
-  text-shadow: 1px 1px 0 #dce5ff, 1px -1px 0 #dce5ff, -1px 1px 0 #dce5ff, -1px -1px 0 #dce5ff, 1px 0px 0 #dce5ff, 0px 1px 0 #dce5ff, -1px 0px 0 #dce5ff, 0px -1px 0 #dce5ff;
   letter-spacing: 1px;
 }
 
@@ -314,7 +312,14 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 20px;
+}
+
+.emoji {
+  text-align: center;
+  font-size: 32px;
+  margin-top: -8px;
+  margin-left: -1px;
 }
 
 .post-list {
@@ -379,7 +384,7 @@ nav {
   font-family: 'jbmono';
   opacity: 0.5;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
