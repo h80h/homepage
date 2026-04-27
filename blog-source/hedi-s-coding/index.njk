@@ -5,12 +5,14 @@ layout: "blog-layout.html"
 permalink: /code/index.html
 ---
 <div class="blog-title-container">
-  <img src="/blog-assets/h80h-2026-look-n-blink.gif" width="32" height="32">
-  <div class="blog-title">⋆ . ˚ {{ title }} ˚ · ⋆</div>
+  <img id="blog-logo" src="/blog-assets/h80h-2026-look-n-blink.gif">
+  <div class="blog-title">⋆ . ˚ {{ title | doubleStruck }} ˚ · ⋆</div>
 </div>
-<section class="category-header">
-    <p>/* powered by curiosity */</p>
-</section>
+<div class="blog-nav">
+  <a>about</a>
+  <a>uses</a>
+  <a>links</a>
+</div>
 
 <ul class="post-list">
   {# We loop through the 'hedi-s-coding' tag we defined in the JSON file #}

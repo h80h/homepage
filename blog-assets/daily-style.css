@@ -101,7 +101,7 @@ html {
 }
 
 body {
-  width: 700px;
+  width: 800px;
   margin: 0 auto;
   background: #F2F2EC;
   color: #0D314B;
@@ -128,7 +128,8 @@ a:hover {
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 18px;
+  color: rgba(13, 49, 75, 0.8);
 }
 
 header {
@@ -145,7 +146,7 @@ header {
   display: flex;
   align-items: center;
   padding: 3px 5px 3px 10px;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 main {
@@ -302,12 +303,13 @@ nav {
 }
 
 .date {
-  font-size: 14px;
+  font-size: 16px;
+  color: rgba(13, 49, 75, 0.7);
 }
 
 p {
   margin-top: 1em;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 @media(max-width: 640px) {
@@ -320,12 +322,7 @@ p {
   }
 
   .nav-search-wrap {
-    padding: 3px 3px 3px 5px;
     max-width: 100vw;
-  }
-
-  main {
-    padding: 0 5px;
   }
 
   #search {
