@@ -181,9 +181,9 @@ nav {
 
 .pagefind-ui__search-input {
   height: 20px !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: normal !important;
-  padding: 0 0 0 18px !important;
+  padding: 0 0 0 22px !important;
   border: 1px solid #ccc !important;
   border-radius: 10px !important;
 }
@@ -202,7 +202,7 @@ nav {
 
 .pagefind-ui__form::before {
   top: 5.5px !important;
-  left: 6px !important;
+  left: 8px !important;
   width: 10px !important;
   height: 10px !important;
 }
@@ -212,13 +212,13 @@ nav {
   position: absolute;
   top: calc(100% + 5px);
   right: 0;
-  width: 210px;
-  max-height: 215px;
+  width: 235px;
+  max-height: 250px;
   /* limit height so it doesn't go off screen */
   overflow-y: auto;
   /* scroll inside the dropdown instead */
-  background: #fff59d;
-  color: #0D314B;
+  background: #FDF3BE;
+  color: #0d314b;
   border: 1px solid #ccc;
   z-index: 999;
 }
@@ -230,7 +230,7 @@ nav {
 }
 
 .pagefind-ui__drawer::-webkit-scrollbar-track {
-  background: #fff59d;
+  background: #FDF3BE;
 }
 
 /* 2. Modify the thumb to use the border/clip trick */
@@ -252,7 +252,7 @@ nav {
 
 .pagefind-ui__message {
   padding: 0 0 8px 0 !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .pagefind-ui__results-area {
@@ -276,7 +276,7 @@ nav {
 }
 
 .pagefind-ui__result-excerpt {
-  font-size: 12px !important;
+  font-size: 13px !important;
   min-width: 0;
 }
 
@@ -286,7 +286,7 @@ nav {
 }
 
 .pagefind-ui__result-title {
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .pagefind-ui__result-link {
