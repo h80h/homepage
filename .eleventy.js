@@ -274,7 +274,7 @@ module.exports = function (eleventyConfig) {
         "    var editors = {};",
         // On mobile, show preview by default
         "    var isMobile=function(){ return window.matchMedia('(max-width:450px)').matches; };",
-        '    var getAceTheme=function(){ var t=document.documentElement.getAttribute("data-theme"); return (t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches)) ? "ace/theme/tomorrow_night" : "ace/theme/chrome"; };',
+        '    var getAceTheme=function(){ var t=document.documentElement.getAttribute("data-theme"); return (t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches)) ? "ace/theme/nord_dark" : "ace/theme/chrome"; };',
         "    function initMobile(){",
         "      if(isMobile()){",
         "        preview.classList.add('pg-mobile-show');",
@@ -360,7 +360,7 @@ module.exports = function (eleventyConfig) {
         "    initMobile();",
         "    render();",
         '    var lightBtn=document.getElementById("light-theme-symbol"); if(lightBtn) lightBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/chrome"); }); });',
-        '    var darkBtn=document.getElementById("dark-theme-symbol"); if(darkBtn) darkBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/tomorrow_night"); }); });',
+        '    var darkBtn=document.getElementById("dark-theme-symbol"); if(darkBtn) darkBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/nord_dark"); }); });',
         "  });",
         "}",
         "init();",
