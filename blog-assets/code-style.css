@@ -424,9 +424,12 @@ p {
   }
 
   :root:not([data-theme="light"]) body,
-  :root:not([data-theme="light"]) .blog-title,
-  :root:not([data-theme="light"]) .blog-nav a,
-  :root:not([data-theme="light"]) .post-title {
+  :root:not([data-theme="light"])h1,
+  :root:not([data-theme="light"])h2,
+  :root:not([data-theme="light"])h3,
+  :root:not([data-theme="light"])h4,
+  :root:not([data-theme="light"])h5,
+  :root:not([data-theme="light"])h6 {
     color: #e2e8f0;
   }
 
@@ -443,30 +446,13 @@ p {
     color: rgb(255, 162, 212) !important;
   }
 
-  :root:not([data-theme="light"]) .blog-title::after {
-    display: none;
-  }
-
-  :root:not([data-theme="light"]) .read-more {
-    text-shadow: 1px 1px 0 #202c46, 1px -1px 0 #202c46, -1px 1px 0 #202c46, -1px -1px 0 #202c46, 1px 0px 0 #202c46, 0px 1px 0 #202c46, -1px 0px 0 #202c46, 0px -1px 0 #202c46;
-  }
-
   :root:not([data-theme="light"]) .pagefind-ui__search-input {
     background: #ebebff !important;
   }
 
   :root:not([data-theme="light"]) nav,
-  :root:not([data-theme="light"]) nav a,
-  :root:not([data-theme="light"]) .blog-title {
+  :root:not([data-theme="light"]) nav a {
     text-shadow: 1px 1px 0 #6e6eb3, 1px -1px 0 #6e6eb3, -1px 1px 0 #6e6eb3, -1px -1px 0 #6e6eb3, 1px 0px 0 #6e6eb3, 0px 1px 0 #6e6eb3, -1px 0px 0 #6e6eb3, 0px -1px 0 #6e6eb3;
-  }
-
-  :root:not([data-theme="light"]) .blog-nav a {
-    border-bottom: 1.5px solid #e2e8f0;
-  }
-
-  :root:not([data-theme="light"]) .category {
-    color: #0f172a !important;
   }
 
   :root:not([data-theme="light"]) .date {
@@ -489,9 +475,12 @@ p {
 }
 
 [data-theme="dark"] body,
-[data-theme="dark"] .blog-title,
-[data-theme="dark"] .blog-nav a,
-[data-theme="dark"] .post-title {
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
   color: #e2e8f0;
 }
 
@@ -508,30 +497,13 @@ p {
   color: rgb(255, 162, 212) !important;
 }
 
-[data-theme="dark"] .blog-title::after {
-  display: none;
-}
-
-[data-theme="dark"] .read-more {
-  text-shadow: 1px 1px 0 #202c46, 1px -1px 0 #202c46, -1px 1px 0 #202c46, -1px -1px 0 #202c46, 1px 0px 0 #202c46, 0px 1px 0 #202c46, -1px 0px 0 #202c46, 0px -1px 0 #202c46;
-}
-
 [data-theme="dark"] .pagefind-ui__search-input {
   background: #ebebff !important;
 }
 
 [data-theme="dark"] nav,
-[data-theme="dark"] nav a,
-[data-theme="dark"] .blog-title {
+[data-theme="dark"] nav a {
   text-shadow: 1px 1px 0 #6e6eb3, 1px -1px 0 #6e6eb3, -1px 1px 0 #6e6eb3, -1px -1px 0 #6e6eb3, 1px 0px 0 #6e6eb3, 0px 1px 0 #6e6eb3, -1px 0px 0 #6e6eb3, 0px -1px 0 #6e6eb3;
-}
-
-[data-theme="dark"] .blog-nav a {
-  border-bottom: 1.5px solid #e2e8f0;
-}
-
-[data-theme="dark"] .category {
-  color: #0f172a !important;
 }
 
 [data-theme="dark"] .date {
