@@ -11,7 +11,7 @@ now let me test how the verdana font works when it's a `<p>` element
 ```playground
 ---html---
 <div class="container">
-  <p>You're now viewing this example with the <span class='theme-name'>dark</span> theme!</p>
+  <p>You're now viewing this example with the <span class='theme-name'>light</span> theme!</p>
   <button class="theme-toggle">Toggle Theme</button>
 </div>
 ---css---
@@ -74,7 +74,7 @@ function setTheme() {
 
 document.querySelector('.theme-toggle').addEventListener('click', setTheme)
 ```
-## 
+## I'm a h2, The Largest Heading In a Post
 
 ```playground
 ---html---
@@ -131,7 +131,7 @@ body {
 ---js---
 
 ```
-
+test test!
 ```playground
 ---html---
 <div class="card">
@@ -158,5 +158,88 @@ function greet() {
 }
 ```
 
+## Header 2
+```playground
+---html---
+<div class="grid-container">
+  <div class="grid-item item1">item1</div>
+  <div class="grid-item item2">item2</div>
+  <div class="grid-item item3">item3</div>
+  <div class="grid-item item4">item4</div>
+</div>
+---css---
+.grid-container {
+  resize: both;
+  overflow: auto;
+  display: grid;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid grey;
+  background-color: skyblue;
+  width: 300px;
+  grid-template:
+    "item1 item1 item2" 150px
+    "item3 item4 item4" 1fr
+    / 50px auto 50px;
+}
+
+.grid-item {
+  background-color: #444;
+  text-align: center;
+  color: #ddd;
+}
+
+.item1 {
+  grid-area: item1;
+}
+
+.item2 {
+  grid-area: item2;
+}
+
+.item3 {
+  grid-area: item3;
+}
+
+.item4 {
+  grid-area: item4;
+}
+
+---js---
+
+```
 
 ![avatarimage.png|114](https://blog-assets.3chih21.workers.dev/blog/202604/22/avatarimage.png?rDRIbGo7NW)
+
+```playground
+---html---
+<body>
+  <div id="text">resize me by draging in the bottom right</div>
+  <div id="container">
+    <img id="iconHolder" src="https://raw.githubusercontent.com/h80h/widgets_to_embed/refs/heads/main/image/kiwi_wandering.gif" alt="odin" />
+  </div>
+</body>
+---css---
+#container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 6px solid black;
+  resize: both;
+  overflow: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#iconHolder {
+  width: min(100px, 100%);
+  height: min(100px, 100%);
+  box-sizing: border-box;
+  border: 6px solid blue;
+}
+
+---js---
+
+```

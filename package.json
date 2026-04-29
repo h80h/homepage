@@ -18,6 +18,7 @@
     "serve": "^14.2.6"
   },
   "dependencies": {
+    "markdown-it-anchor": "^9.2.0",
     "pagefind": "^1.5.2"
   }
 }

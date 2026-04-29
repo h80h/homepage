@@ -2,6 +2,7 @@ const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const markdownIt = require("markdown-it");
 const markdownItObsidian = require("markdown-it-obsidian");
+const markdownItAnchor = require("markdown-it-anchor");
 
 module.exports = function (eleventyConfig) {
   // 1. THE OBSIDIAN BRIDGE
@@ -9,7 +10,18 @@ module.exports = function (eleventyConfig) {
     html: true,
     breaks: true,
     linkify: true,
-  }).use(markdownItObsidian({ baseURL: "/blog/" }));
+  })
+    .use(markdownItObsidian({ baseURL: "/blog/" }))
+    .use(markdownItAnchor, {
+      permalink: markdownItAnchor.permalink.headerLink(),
+      level: [2, 3, 4, 5, 6],
+      slugify: (s) =>
+        s
+          .trim()
+          .toLowerCase()
+          .replace(/[\s]+/g, "-")
+          .replace(/[^\w-]/g, ""),
+    });
   eleventyConfig.setLibrary("md", markdownLib);
 
   // 2. THE ASSET PIPELINE
@@ -262,6 +274,7 @@ module.exports = function (eleventyConfig) {
         "    var editors = {};",
         // On mobile, show preview by default
         "    var isMobile=function(){ return window.matchMedia('(max-width:450px)').matches; };",
+        '    var getAceTheme=function(){ var t=document.documentElement.getAttribute("data-theme"); return (t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches)) ? "ace/theme/tomorrow_night" : "ace/theme/chrome"; };',
         "    function initMobile(){",
         "      if(isMobile()){",
         "        preview.classList.add('pg-mobile-show');",
@@ -274,7 +287,7 @@ module.exports = function (eleventyConfig) {
         "      var editor = ace.edit(el);",
         '      var mode = lang === "js" ? "javascript" : lang;',
         '      editor.session.setMode("ace/mode/" + mode);',
-        '      editor.setTheme("ace/theme/chrome");',
+        "      editor.setTheme(getAceTheme());",
         "      editor.setOptions({ useWorker: false, showPrintMargin: false, highlightActiveLine: false });",
         "      editor.renderer.setPadding(10);",
         '      editor.session.on("change", function(){',
@@ -300,13 +313,11 @@ module.exports = function (eleventyConfig) {
         "      preview.classList.remove('pg-hidden'); preview.classList.add('pg-solo');",
         "      editorWrap.classList.add('pg-hidden'); editorWrap.classList.remove('pg-solo');",
         "      if(isMobile()){ preview.classList.add('pg-mobile-show'); editorWrap.classList.remove('pg-mobile-show'); }",
-        "      render();",
         "    }",
         "    function showBoth(){",
         "      editorWrap.classList.remove('pg-hidden','pg-solo');",
         "      preview.classList.remove('pg-hidden','pg-solo');",
         "      if(isMobile()){ preview.classList.add('pg-mobile-show'); editorWrap.classList.remove('pg-mobile-show'); }",
-        "      render();",
         "    }",
         "    tabs.forEach(function(tab){",
         '      tab.addEventListener("click",function(){',
@@ -348,6 +359,8 @@ module.exports = function (eleventyConfig) {
         "    });",
         "    initMobile();",
         "    render();",
+        '    var lightBtn=document.getElementById("light-theme-symbol"); if(lightBtn) lightBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/chrome"); }); });',
+        '    var darkBtn=document.getElementById("dark-theme-symbol"); if(darkBtn) darkBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/tomorrow_night"); }); });',
         "  });",
         "}",
         "init();",
@@ -371,4 +384,4 @@ module.exports = function (eleventyConfig) {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
   };
-};;
+};

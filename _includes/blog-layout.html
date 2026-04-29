@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hedi's blog</title>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-    <link rel="stylesheet" href="/blog-assets/blog-style.css">
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="hedi's blog" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hedi's blog</title>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      if (stored) document.documentElement.setAttribute('data-theme', stored);
+    })();
+  </script>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="/blog-assets/blog-style.css">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="hedi's blog" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
 <body class="blog-theme" data-tags="{{ tags | join(' ') }}">
-    <header>
-      <div class="nav-search-wrap">
-        <nav>
-          <a href="/blog/">blog</a>
-          {# Only show the category link if it exists and isn't the root 'all' folder #}
-          {% if category_folder %}
-            <span class="breadcrumb-symbol">›</span>
-            <a href="/{{ category_url }}/">{{ category_folder }}</a>
-          {% endif %}
-        </nav>
-        <div id="search"></div>
+  <header>
+    <div class="nav-search-wrap">
+      <nav>
+        <a href="/blog/">blog</a>
+        {# Only show the category link if it exists and isn't the root 'all' folder #}
+        {% if category_folder %}
+        <span class="breadcrumb-symbol">›</span>
+        <a href="/{{ category_url }}/">{{ category_folder }}</a>
+        {% endif %}
+      </nav>
+      <div id="search"></div>
+      <div id="theme-toggle">
+        <span id="light-theme-symbol">𖤓</span>
+        <span id="dark-theme-symbol">☾</span>
       </div>
-    </header>
-    <main>
-        {{ content | safe }}
-    </main>
-    <script src="/pagefind/pagefind-ui.js"></script>
-    <script src="/blog-assets/share.js"></script>
+    </div>
+  </header>
+  <main {% if pagefindIgnore %}data-pagefind-ignore="all" {% endif %}>
+    {% if not pagefindIgnore %}
+    <article data-pagefind-body>
+      {{ content | safe }}
+    </article>
+    {% else %}
+    {{ content | safe }}
+    {% endif %}
+  </main>
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script src="/blog-assets/share.js"></script>
 </body>
+
 </html>

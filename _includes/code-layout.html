@@ -5,6 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} • hedi's blog</title>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      if (stored) document.documentElement.setAttribute('data-theme', stored);
+    })();
+  </script>
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
   <link rel="stylesheet" href="/blog-assets/code-style.css">
   <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
@@ -26,10 +32,14 @@
         </div>
         <div class="nav-bottom-container">
           <span class="breadcrumb-symbol">›</span>
-          <span class="post-title-nav">{{ title }}</span>
+          <a class="post-title-nav" href="{{ page.url }}">{{ title }}</a>
         </div>
       </nav>
       <div id="search"></div>
+      <div id="theme-toggle">
+        <span id="light-theme-symbol">𖤓</span>
+        <span id="dark-theme-symbol">☾</span>
+      </div>
     </div>
   </header>
   <main>
