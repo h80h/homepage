@@ -223,7 +223,7 @@ nav {
   top: calc(100% + 5px);
   right: 0;
   width: 250px;
-  max-height: 255px;
+  height: 255px;
   /* limit height so it doesn't go off screen */
   overflow-y: auto;
   /* scroll inside the dropdown instead */
@@ -263,6 +263,7 @@ nav {
 .pagefind-ui__message {
   padding: 0 0 8px 0 !important;
   font-size: 13px !important;
+  color: #0D314B !important;
 }
 
 .pagefind-ui__results-area {
@@ -288,6 +289,7 @@ nav {
 .pagefind-ui__result-excerpt {
   font-size: 13px !important;
   min-width: 0;
+  color: #0D314B !important;
 }
 
 .pagefind-ui__result-excerpt mark {
@@ -295,7 +297,8 @@ nav {
   color: #0D314B !important;
 }
 
-.pagefind-ui__result-title {
+.pagefind-ui__result-title,
+.pagefind-ui__result-link {
   font-size: 13px !important;
 }
 
@@ -484,16 +487,17 @@ nav {
   }
 
   :root:not([data-theme="light"]) header {
-    background-image: radial-gradient(#bcbfff 1px, #0f172a 1px);
+    /* background-image: radial-gradient(#6f74bb 1px, #21255a 1px); */
+    background-image: radial-gradient(#5a60a8 1px, #1a1d47 1px);
   }
 
   :root:not([data-theme="light"]) nav,
   :root:not([data-theme="light"]) nav a {
-    color: #e2e8f0 !important;
+    color: #cbd5e1 !important;
   }
 
   :root:not([data-theme="light"]) nav a:hover {
-    color: rgb(255, 162, 212) !important;
+    color: #e28099 !important;
   }
 
   :root:not([data-theme="light"]) .blog-title::after {
@@ -505,11 +509,29 @@ nav {
   }
 
   :root:not([data-theme="light"]) .pagefind-ui__search-input {
-    background: #ebebff !important;
+    background: #5c6d90 !important;
+    border-color: #464f61 !important;
+    color: #fff;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__form::before {
+    background-color: #fff !important;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__drawer,
+  :root:not([data-theme="light"]) .pagefind-ui__drawer::-webkit-scrollbar-track {
+    background: #dcc7ed;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__result-excerpt mark {
+    background: #baccc3 !important;
   }
 
   :root:not([data-theme="light"]) nav,
-  :root:not([data-theme="light"]) nav a,
+  :root:not([data-theme="light"]) nav a {
+    text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
+  }
+
   :root:not([data-theme="light"]) .blog-title {
     text-shadow: 1px 1px 0 #6e6eb3, 1px -1px 0 #6e6eb3, -1px 1px 0 #6e6eb3, -1px -1px 0 #6e6eb3, 1px 0px 0 #6e6eb3, 0px 1px 0 #6e6eb3, -1px 0px 0 #6e6eb3, 0px -1px 0 #6e6eb3;
   }
@@ -543,16 +565,16 @@ nav {
 }
 
 [data-theme="dark"] header {
-  background-image: radial-gradient(#bcbfff 1px, #0f172a 1px);
+  background-image: radial-gradient(#5a60a8 1px, #1a1d47 1px);
 }
 
 [data-theme="dark"] nav,
 [data-theme="dark"] nav a {
-  color: #e2e8f0 !important;
+  color: #cbd5e1 !important;
 }
 
 [data-theme="dark"] nav a:hover {
-  color: rgb(255, 162, 212) !important;
+  color: #e28099 !important;
 }
 
 [data-theme="dark"] .blog-title::after {
@@ -564,11 +586,29 @@ nav {
 }
 
 [data-theme="dark"] .pagefind-ui__search-input {
-  background: #ebebff !important;
+  background: #5c6d90 !important;
+  border-color: #464f61 !important;
+  color: #fff;
+}
+
+[data-theme="dark"] .pagefind-ui__form::before {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .pagefind-ui__drawer,
+[data-theme="dark"] .pagefind-ui__drawer::-webkit-scrollbar-track {
+  background: #dcc7ed;
+}
+
+[data-theme="dark"] .pagefind-ui__result-excerpt mark {
+  background: #baccc3 !important;
 }
 
 [data-theme="dark"] nav,
-[data-theme="dark"] nav a,
+[data-theme="dark"] nav a {
+  text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
+}
+
 [data-theme="dark"] .blog-title {
   text-shadow: 1px 1px 0 #6e6eb3, 1px -1px 0 #6e6eb3, -1px 1px 0 #6e6eb3, -1px -1px 0 #6e6eb3, 1px 0px 0 #6e6eb3, 0px 1px 0 #6e6eb3, -1px 0px 0 #6e6eb3, 0px -1px 0 #6e6eb3;
 }

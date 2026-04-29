@@ -104,7 +104,7 @@ body {
   width: 800px;
   margin: 0 auto;
   background: #f0f4f6;
-  color: #0D314B;
+  color: #0d314b;
   font-family: Verdana, Tahoma, sans-serif;
   cursor: default;
 }
@@ -137,14 +137,15 @@ a:hover {
   color: rgb(101, 156, 173);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1 {
   font-size: 18px;
   color: rgba(13, 49, 75, 0.8);
+}
+
+.header-anchor {
+  font-size: 18px;
+  font-weight: normal;
+  color: rgba(13, 49, 75, 0.8) !important;
 }
 
 header {
@@ -241,12 +242,12 @@ nav {
   top: calc(100% + 5px);
   right: 0;
   width: 250px;
-  max-height: 255px;
+  height: 255px;
   /* limit height so it doesn't go off screen */
   overflow-y: auto;
   /* scroll inside the dropdown instead */
   background: #FDF3BE;
-  color: #0d314b;
+  color: #0D314B;
   border: 1px solid #ccc;
   z-index: 999;
 }
@@ -281,6 +282,7 @@ nav {
 .pagefind-ui__message {
   padding: 0 0 8px 0 !important;
   font-size: 13px !important;
+  color: #0D314B !important;
 }
 
 .pagefind-ui__results-area {
@@ -306,6 +308,7 @@ nav {
 .pagefind-ui__result-excerpt {
   font-size: 13px !important;
   min-width: 0;
+  color: #0D314B !important;
 }
 
 .pagefind-ui__result-excerpt mark {
@@ -313,7 +316,8 @@ nav {
   color: #0D314B !important;
 }
 
-.pagefind-ui__result-title {
+.pagefind-ui__result-title,
+.pagefind-ui__result-link {
   font-size: 13px !important;
 }
 
@@ -435,25 +439,40 @@ p {
   }
 
   :root:not([data-theme="light"]) header {
-    background-image: radial-gradient(#bcbfff 1px, #0f172a 1px);
+    background-image: radial-gradient(#5a60a8 1px, #1a1d47 1px);
   }
 
   :root:not([data-theme="light"]) nav,
   :root:not([data-theme="light"]) nav a {
-    color: #e2e8f0 !important;
+    color: #cbd5e1 !important;
   }
 
   :root:not([data-theme="light"]) nav a:hover {
-    color: rgb(255, 162, 212) !important;
+    color: #e28099 !important;
   }
 
   :root:not([data-theme="light"]) .pagefind-ui__search-input {
-    background: #ebebff !important;
+    background: #5c6d90 !important;
+    border-color: #464f61 !important;
+    color: #fff;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__form::before {
+    background-color: #fff !important;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__drawer,
+  :root:not([data-theme="light"]) .pagefind-ui__drawer::-webkit-scrollbar-track {
+    background: #dcc7ed;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__result-excerpt mark {
+    background: #baccc3 !important;
   }
 
   :root:not([data-theme="light"]) nav,
   :root:not([data-theme="light"]) nav a {
-    text-shadow: 1px 1px 0 #6e6eb3, 1px -1px 0 #6e6eb3, -1px 1px 0 #6e6eb3, -1px -1px 0 #6e6eb3, 1px 0px 0 #6e6eb3, 0px 1px 0 #6e6eb3, -1px 0px 0 #6e6eb3, 0px -1px 0 #6e6eb3;
+    text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
   }
 
   :root:not([data-theme="light"]) .date {
@@ -517,25 +536,40 @@ p {
 }
 
 [data-theme="dark"] header {
-  background-image: radial-gradient(#bcbfff 1px, #0f172a 1px);
+  background-image: radial-gradient(#5a60a8 1px, #1a1d47 1px);
 }
 
 [data-theme="dark"] nav,
 [data-theme="dark"] nav a {
-  color: #e2e8f0 !important;
+  color: #cbd5e1 !important;
 }
 
 [data-theme="dark"] nav a:hover {
-  color: rgb(255, 162, 212) !important;
+  color: #e28099 !important;
 }
 
 [data-theme="dark"] .pagefind-ui__search-input {
-  background: #ebebff !important;
+  background: #5c6d90 !important;
+  border-color: #464f61 !important;
+  color: #fff;
+}
+
+[data-theme="dark"] .pagefind-ui__form::before {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .pagefind-ui__drawer,
+[data-theme="dark"] .pagefind-ui__drawer::-webkit-scrollbar-track {
+  background: #dcc7ed;
+}
+
+[data-theme="dark"] .pagefind-ui__result-excerpt mark {
+  background: #baccc3 !important;
 }
 
 [data-theme="dark"] nav,
 [data-theme="dark"] nav a {
-  text-shadow: 1px 1px 0 #6e6eb3, 1px -1px 0 #6e6eb3, -1px 1px 0 #6e6eb3, -1px -1px 0 #6e6eb3, 1px 0px 0 #6e6eb3, 0px 1px 0 #6e6eb3, -1px 0px 0 #6e6eb3, 0px -1px 0 #6e6eb3;
+  text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
 }
 
 [data-theme="dark"] .date {
