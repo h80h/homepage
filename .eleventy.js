@@ -262,6 +262,32 @@ module.exports = function (eleventyConfig) {
       "</style>",
     ].join("");
 
+    const aceOverrides = [
+      "<style>",
+      // Chrome token colors applied to kuroir's background/layout
+      ".ace-kuroir{color:black !important;}",
+      ".ace-kuroir .ace_comment,.ace-kuroir .ace_comment.ace_doc,.ace-kuroir .ace_comment.ace_doc.ace_tag{color:#236e24 !important;background-color:transparent !important;}",
+      ".ace-kuroir .ace_string{color:#1A1AA6 !important;}",
+      ".ace-kuroir .ace_string.ace_regexp{color:rgb(255,0,0) !important;background-color:transparent !important;}",
+      ".ace-kuroir .ace_constant{color:rgb(88,72,246) !important;}",
+      ".ace-kuroir .ace_constant.ace_numeric{color:rgb(0,0,205) !important;}",
+      ".ace-kuroir .ace_constant.ace_language{color:rgb(88,92,246) !important;}",
+      ".ace-kuroir .ace_constant.ace_library,.ace-kuroir .ace_support.ace_constant{color:rgb(6,150,14) !important;}",
+      ".ace-kuroir .ace_support.ace_function{color:rgb(60,76,114) !important;}",
+      ".ace-kuroir .ace_support.ace_type,.ace-kuroir .ace_support.ace_class{color:rgb(109,121,222) !important;}",
+      ".ace-kuroir .ace_storage,.ace-kuroir .ace_keyword{color:rgb(147,15,128) !important;}",
+      ".ace-kuroir .ace_keyword.ace_operator{color:rgb(104,118,135) !important;}",
+      ".ace-kuroir .ace_variable{color:rgb(49,132,149) !important;}",
+      ".ace-kuroir .ace_variable.ace_parameter{color:#FD971F !important;font-style:italic;}",
+      ".ace-kuroir .ace_meta.ace_tag{color:rgb(147,15,128) !important;}",
+      ".ace-kuroir .ace_entity.ace_name.ace_function{color:#0000A2 !important;}",
+      ".ace-kuroir .ace_entity.ace_other.ace_attribute-name{color:#994409 !important;}",
+      ".ace-kuroir .ace_markup.ace_heading{color:rgb(12,7,255) !important;background-color:transparent !important;}",
+      ".ace-kuroir .ace_markup.ace_list{color:rgb(185,6,144) !important;}",
+      ".ace-kuroir .ace_invalid{background-color:rgb(153,0,0) !important;color:white !important;}",
+      "</style>",
+    ].join("");
+
     const SO = "<scr" + "ipt>";
     const SC = "<\/scr" + "ipt>";
     const aceLib =
@@ -378,8 +404,11 @@ module.exports = function (eleventyConfig) {
       SC;
 
     if (replaced.includes("</body>"))
-      return replaced.replace("</body>", style + script + "</body>");
-    return replaced + style + script;
+      return replaced.replace(
+        "</body>",
+        style + aceOverrides + script + "</body>",
+      );
+    return replaced + style + aceOverrides + script;
   });
 
   // 5. THE FACTORY SETTINGS
