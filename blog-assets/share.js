@@ -40,6 +40,30 @@ window.addEventListener("DOMContentLoaded", () => {
       document.documentElement.setAttribute("data-theme", "dark");
       localStorage.setItem("theme", "dark");
     });
+
+  const normalize = (p) => p.replace(/\/$/, "");
+
+  document
+    .querySelector(".post-title-nav")
+    ?.addEventListener("click", function (e) {
+      if (
+        normalize(new URL(this.href).pathname) === normalize(location.pathname)
+      ) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+
+  document
+    .querySelector(".nav-current")
+    ?.addEventListener("click", function (e) {
+      if (
+        normalize(new URL(this.href).pathname) === normalize(location.pathname)
+      ) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
 });
 
 document.addEventListener("mousedown", function (e) {

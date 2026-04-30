@@ -25,11 +25,10 @@
   <header>
     <div class="nav-search-wrap">
       <nav>
-        <a href="/blog/">blog</a>
-        {# Only show the category link if it exists and isn't the root 'all' folder #}
+        <a href="/blog/" {% if not category_folder %}class="nav-current" {% endif %}>blog</a>
         {% if category_folder %}
         <span class="breadcrumb-symbol">›</span>
-        <a href="/{{ category_url }}/">{{ category_folder }}</a>
+        <a href="/{{ category_url }}/" class="nav-current">{{ category_folder }}</a>
         {% endif %}
       </nav>
       <div id="search"></div>
@@ -50,17 +49,7 @@
   </main>
   <script src="/pagefind/pagefind-ui.js"></script>
   <script src="/blog-assets/share.js"></script>
-  <script>
-    var lastNavLink = document.querySelector('nav a:last-of-type');
-    if (lastNavLink) {
-      lastNavLink.addEventListener('click', function (e) {
-        if (new URL(this.href).pathname === location.pathname) {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    }
-  </script>
+
 </body>
 
 </html>
