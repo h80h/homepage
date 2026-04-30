@@ -235,12 +235,12 @@ module.exports = function (eleventyConfig) {
 
     const style = [
       "<style>",
-      ".pg-wrap{font-family:Menlo;border:1px solid #DCDCDC;overflow:hidden;margin:1.5rem 0;}",
-      ".pg-tabs{display:flex;align-items:center;background:#DCDCDC;}",
+      ".pg-wrap{font-family:Menlo;border:1px solid #d0d0d0;overflow:hidden;margin:1.5rem 0;}",
+      ".pg-tabs{display:flex;align-items:center;background:#dcdcdc;}",
       ".pg-tab{padding:2px 10px;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#333;font-family:inherit;}",
       ".pg-tab:hover{color:#B8382F;}.pg-tab.active{color:#B8382F;}",
       ".pg-body{display:flex;height:300px;}",
-      ".pg-editor-wrap{width:50%;border-right:1px solid #DCDCDC;display:flex;flex-direction:column;overflow:hidden;background:#fff;}",
+      ".pg-editor-wrap{width:50%;border-right:1px solid #d0d0d0;display:flex;flex-direction:column;overflow:hidden;background:#fff;}",
       ".pg-editor-wrap.pg-solo{width:100%;border-right:none;}",
       ".pg-preview{width:50%;background:#fff;}",
       ".pg-preview.pg-solo{width:100%;}",
@@ -283,7 +283,7 @@ module.exports = function (eleventyConfig) {
         "    var editors = {};",
         // On mobile, show preview by default
         "    var isMobile=function(){ return window.matchMedia('(max-width:450px)').matches; };",
-        '    var getAceTheme=function(){ var t=document.documentElement.getAttribute("data-theme"); return (t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches)) ? "ace/theme/nord_dark" : "ace/theme/chrome"; };',
+        '    var getAceTheme=function(){ var t=document.documentElement.getAttribute("data-theme"); return (t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches)) ? "ace/theme/nord_dark" : "ace/theme/kuroir"; };',
         "    function initMobile(){",
         "      if(isMobile()){",
         "        preview.classList.add('pg-mobile-show');",
@@ -368,7 +368,7 @@ module.exports = function (eleventyConfig) {
         "    });",
         "    initMobile();",
         "    render();",
-        '    var lightBtn=document.getElementById("light-theme-symbol"); if(lightBtn) lightBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/chrome"); }); });',
+        '    var lightBtn=document.getElementById("light-theme-symbol"); if(lightBtn) lightBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/kuroir"); }); });',
         '    var darkBtn=document.getElementById("dark-theme-symbol"); if(darkBtn) darkBtn.addEventListener("click",function(){ Object.keys(editors).forEach(function(k){ editors[k].editor.setTheme("ace/theme/nord_dark"); }); });',
         "  });",
         "}",
