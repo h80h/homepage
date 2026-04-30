@@ -54,7 +54,7 @@
     var lastNavLink = document.querySelector('nav a:last-of-type');
     if (lastNavLink) {
       lastNavLink.addEventListener('click', function (e) {
-        if (this.href === location.href) {
+        if (new URL(this.href).pathname === location.pathname) {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }

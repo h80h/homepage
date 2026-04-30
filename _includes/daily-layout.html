@@ -49,7 +49,7 @@
     <script src="/blog-assets/share.js"></script>
     <script>
       document.querySelector('.post-title-nav').addEventListener('click', function (e) {
-        if (this.href === location.href) {
+        if (new URL(this.href).pathname === location.pathname) {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
