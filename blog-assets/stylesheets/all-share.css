@@ -101,7 +101,7 @@ html {
 body {
   width: 800px;
   margin: 0 auto;
-  background: #d8ebf4;
+  background: #dbe7ed;
   color: #0d314b;
   font-family: Verdana, Tahoma, sans-serif;
   cursor: default;
@@ -129,7 +129,7 @@ header {
   z-index: 100;
   position: sticky;
   top: 0;
-  background-image: radial-gradient(#c2c5ff 1px, #d3e9f3 1px);
+  background-image: radial-gradient(#bcbfff 1px, #eeeef9 1px);
   background-size: 5px 5px;
 }
 
@@ -144,7 +144,7 @@ header {
 nav {
   color: #5151ff;
   font-size: 16px;
-  text-shadow: 1px 1px 0 #e2f6ff, 1px -1px 0 #e2f6ff, -1px 1px 0 #e2f6ff, -1px -1px 0 #e2f6ff, 1px 0px 0 #e2f6ff, 0px 1px 0 #e2f6ff, -1px 0px 0 #e2f6ff, 0px -1px 0 #e2f6ff;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
 }
 
 .breadcrumb-symbol {
