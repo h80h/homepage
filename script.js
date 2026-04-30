@@ -19,7 +19,7 @@ function createBubbleElement(isReady = true) {
   // Calculate position relative to h80h element
   // You can adjust these offset values as needed
   const offsetX = 10; // horizontal offset from the right edge of h80h
-  const offsetY = -10; // vertical offset from the top of h80h (negative = above)
+  const offsetY = -20; // vertical offset from the top of h80h (negative = above)
   
   // Apply inline styles (converted from TSX style object)
   const styles = {
