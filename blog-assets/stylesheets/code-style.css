@@ -1,0 +1,111 @@
+code {
+  font-family: Verdana;
+  background-color: #f0f0f0 !important;
+  color: #B8382F;
+  padding: 0 1px 2px 1px;
+  border-radius: 5px;
+  border: 1px solid #c8c8c8;
+  font-size: 16px;
+}
+
+/* Ace editor scrollbars */
+.ace_scrollbar-h,
+.ace_scrollbar-h .ace_scrollbar-inner,
+.ace_scrollbar-h::-webkit-scrollbar {
+  height: 8px !important;
+}
+
+.ace_scrollbar-v,
+.ace_scrollbar-v .ace_scrollbar-inner,
+.ace_scrollbar-v::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar-thumb,
+.ace_scrollbar-v::-webkit-scrollbar-thumb {
+  background-color: #afc7d6;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar-thumb:hover,
+.ace_scrollbar-v::-webkit-scrollbar-thumb:hover {
+  background-color: #94b1c3;
+}
+
+.ace_scrollbar-h::-webkit-scrollbar-track,
+.ace_scrollbar-v::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) code {
+    background-color: #182442 !important;
+    color: #ff9a9a;
+    border-color: #42527b;
+  }
+
+  :root:not([data-theme="light"]) .pg-wrap,
+  :root:not([data-theme="light"]) .pg-editor-wrap {
+    border-color: #404656;
+  }
+
+  :root:not([data-theme="light"]) .pg-tabs {
+    background: #404656;
+  }
+
+  :root:not([data-theme="light"]) .pg-tab {
+    color: #e2e8f0;
+  }
+
+  :root:not([data-theme="light"]) .pg-tab.active,
+  :root:not([data-theme="light"]) .pg-tab:hover {
+    color: #ff9a9a;
+  }
+
+  :root:not([data-theme="light"]) .ace_scrollbar-h::-webkit-scrollbar-thumb,
+  :root:not([data-theme="light"]) .ace_scrollbar-v::-webkit-scrollbar-thumb {
+    background-color: #445057;
+  }
+
+  :root:not([data-theme="light"]) .ace_scrollbar-h::-webkit-scrollbar-thumb:hover,
+  :root:not([data-theme="light"]) .ace_scrollbar-v::-webkit-scrollbar-thumb:hover {
+    background-color: #556067;
+  }
+}
+
+[data-theme="dark"] code {
+  background-color: #182442 !important;
+  color: #ff9a9a;
+  border-color: #42527b;
+}
+
+[data-theme="dark"] .pg-wrap,
+[data-theme="dark"] .pg-editor-wrap {
+  border-color: #404656;
+}
+
+[data-theme="dark"] .pg-tabs {
+  background: #404656;
+}
+
+[data-theme="dark"] .pg-tab {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .pg-tab.active,
+[data-theme="dark"] .pg-tab:hover {
+  color: #ff9a9a;
+}
+
+[data-theme="dark"] .ace_scrollbar-h::-webkit-scrollbar-thumb,
+[data-theme="dark"] .ace_scrollbar-v::-webkit-scrollbar-thumb {
+  background-color: #445057;
+}
+
+[data-theme="dark"] .ace_scrollbar-h::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] .ace_scrollbar-v::-webkit-scrollbar-thumb:hover {
+  background-color: #556067;
+}

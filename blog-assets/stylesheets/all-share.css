@@ -89,7 +89,6 @@ html {
   src: url('/blog/fonts/JetBrainsMono-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-
 }
 
 @font-face {
@@ -97,14 +96,13 @@ html {
   src: url('/blog/fonts/barlowcondensed-regular-webfont.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-
 }
 
 body {
   width: 800px;
   margin: 0 auto;
   background: #f0f4f6;
-  color: #0D314B;
+  color: #0d314b;
   font-family: Verdana, Tahoma, sans-serif;
   cursor: default;
 }
@@ -127,11 +125,6 @@ a:hover {
   color: rgb(101, 156, 173);
 }
 
-h1 {
-  font-size: 18px;
-  color: rgba(13, 49, 75, 0.8);
-}
-
 header {
   z-index: 100;
   position: sticky;
@@ -142,15 +135,20 @@ header {
 
 .nav-search-wrap {
   position: relative;
-  /* ← positioning context for BOTH nav and #search */
   display: flex;
   align-items: center;
   padding: 3px 5px 3px 10px;
-  max-width: 800px;
+  width: 800px;
 }
 
-main {
-  padding: 0 10px;
+nav {
+  color: #5151ff;
+  font-size: 16px;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
+}
+
+.breadcrumb-symbol {
+  padding: 0 2px;
 }
 
 #search {
@@ -173,19 +171,6 @@ main {
   font-size: 20px;
 }
 
-nav {
-  color: #5151ff;
-  font-size: 16px;
-  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
-  display: flex;
-  flex-direction: column;
-  gap: unset;
-}
-
-.breadcrumb-symbol {
-  padding: 0 2px;
-}
-
 /* Pagefind widget fits inside the header */
 .pagefind-ui {
   font-family: sans-serif !important;
@@ -203,9 +188,6 @@ nav {
 
 .pagefind-ui__search-input:focus {
   outline: none !important;
-  /* removes the blue glow */
-  /* border-color: #a9c8db !important; */
-  /* your own border color */
 }
 
 .pagefind-ui__search-clear,
@@ -220,43 +202,32 @@ nav {
   height: 10px !important;
 }
 
-/* THIS IS THE KEY PART: results float as overlay, don't stretch the header */
 .pagefind-ui__drawer {
   position: absolute;
   top: calc(100% + 5px);
   right: 0;
   width: 250px;
   height: 255px;
-  /* limit height so it doesn't go off screen */
   overflow-y: auto;
-  /* scroll inside the dropdown instead */
-  background: #FDF3BE;
+  background: #fdf3be;
   color: #0d314b;
   border: 1px solid #ccc;
   z-index: 999;
 }
 
-/* 1. Increase the overall width to make room for the "margin" */
 .pagefind-ui__drawer::-webkit-scrollbar {
   width: 8px;
-  /* e.g., 4px visual thumb + 4px left border + 4px right border */
 }
 
 .pagefind-ui__drawer::-webkit-scrollbar-track {
-  background: #FDF3BE;
+  background: #fdf3be;
 }
 
-/* 2. Modify the thumb to use the border/clip trick */
 .pagefind-ui__drawer::-webkit-scrollbar-thumb {
   background-color: #afc7d6;
-  /* Note: use background-color instead of just background */
   border-radius: 5px;
-
-  /* --- The Margin Trick --- */
   border: 3px solid transparent;
-  /* This acts as your "margin" */
   background-clip: padding-box;
-  /* This stops the background color from bleeding into the border */
   cursor: pointer;
 }
 
@@ -319,6 +290,12 @@ nav {
   height: unset !important;
 }
 
+h1,
+.post-title {
+  font-size: 18px;
+  color: rgba(13, 49, 75, 0.8);
+}
+
 .date {
   font-size: 16px;
   color: rgba(13, 49, 75, 0.7);
@@ -327,6 +304,20 @@ nav {
 p {
   margin-top: 1em;
   font-size: 18px;
+}
+
+main {
+  padding: 0 10px;
+}
+
+h2, h3, h4, h5, h6 {
+  font-size: 18px;
+  font-weight: normal;
+  color: rgba(13, 49, 75, 0.8) !important;
+}
+
+.header-anchor {
+  margin-left: 3px;
 }
 
 @media(max-width: 820px) {
@@ -354,16 +345,10 @@ p {
 
   :root:not([data-theme="light"]) body {
     background-color: #0f172a;
+    color: #e2e8f0;
   }
 
-  :root:not([data-theme="light"]) body,
-  :root:not([data-theme="light"]) p,
-  :root:not([data-theme="light"]) h1,
-  :root:not([data-theme="light"]) h2,
-  :root:not([data-theme="light"]) h3,
-  :root:not([data-theme="light"]) h4,
-  :root:not([data-theme="light"]) h5,
-  :root:not([data-theme="light"]) h6 {
+  :root:not([data-theme="light"]) h1 {
     color: #e2e8f0;
   }
 
@@ -374,6 +359,7 @@ p {
   :root:not([data-theme="light"]) nav,
   :root:not([data-theme="light"]) nav a {
     color: #cbd5e1 !important;
+    text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
   }
 
   :root:not([data-theme="light"]) nav a:hover {
@@ -395,17 +381,28 @@ p {
     background: #dcc7ed;
   }
 
+  :root:not([data-theme="light"]) .pagefind-ui__drawer::-webkit-scrollbar-thumb {
+    background-color: #848f96;
+  }
+
+  :root:not([data-theme="light"]) .pagefind-ui__drawer::-webkit-scrollbar-thumb:hover {
+    background-color: #616f76;
+  }
+
   :root:not([data-theme="light"]) .pagefind-ui__result-excerpt mark {
     background: #baccc3 !important;
   }
 
-  :root:not([data-theme="light"]) nav,
-  :root:not([data-theme="light"]) nav a {
-    text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
-  }
-
   :root:not([data-theme="light"]) .date {
     color: #94a3b8;
+  }
+
+  :root:not([data-theme="light"]) h2,
+  :root:not([data-theme="light"]) h3,
+  :root:not([data-theme="light"]) h4,
+  :root:not([data-theme="light"]) h5,
+  :root:not([data-theme="light"]) h6 {
+    color: #e2e8f0 !important;
   }
 }
 
@@ -415,16 +412,10 @@ p {
 
 [data-theme="dark"] body {
   background-color: #0f172a;
+  color: #e2e8f0;
 }
 
-[data-theme="dark"] body,
-[data-theme="dark"] p,
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6 {
+[data-theme="dark"] h1 {
   color: #e2e8f0;
 }
 
@@ -435,6 +426,7 @@ p {
 [data-theme="dark"] nav,
 [data-theme="dark"] nav a {
   color: #cbd5e1 !important;
+  text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
 }
 
 [data-theme="dark"] nav a:hover {
@@ -456,15 +448,26 @@ p {
   background: #dcc7ed;
 }
 
+[data-theme="dark"] .pagefind-ui__drawer::-webkit-scrollbar-thumb {
+  background-color: #848f96;
+}
+
+[data-theme="dark"] .pagefind-ui__drawer::-webkit-scrollbar-thumb:hover {
+  background-color: #616f76;
+}
+
 [data-theme="dark"] .pagefind-ui__result-excerpt mark {
   background: #baccc3 !important;
 }
 
-[data-theme="dark"] nav,
-[data-theme="dark"] nav a {
-  text-shadow: 1px 1px 0 #515194, 1px -1px 0 #515194, -1px 1px 0 #515194, -1px -1px 0 #515194, 1px 0px 0 #515194, 0px 1px 0 #515194, -1px 0px 0 #515194, 0px -1px 0 #515194;
-}
-
 [data-theme="dark"] .date {
   color: #94a3b8;
+}
+
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #e2e8f0 !important;
 }

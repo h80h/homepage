@@ -76,7 +76,7 @@ document.querySelector('.theme-toggle').addEventListener('click', setTheme)
 ```
 ## I'm a h2, The Largest Heading In a Post
 
-now let me test how it look between header-anchor and text in post
+now let me test how the space between header and plain text in post look like, i guess the line-height of header should be rather higher
 
 ```playground
 ---html---
@@ -212,6 +212,7 @@ function greet() {
 ```
 
 ![avatarimage.png|114](https://blog-assets.3chih21.workers.dev/blog/202604/22/avatarimage.png?rDRIbGo7NW)
+### h3 Test Test Test!
 
 ```playground
 ---html---

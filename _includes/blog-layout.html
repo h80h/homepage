@@ -12,7 +12,8 @@
     })();
   </script>
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-  <link rel="stylesheet" href="/blog-assets/blog-style.css">
+  <link rel="stylesheet" href="/blog-assets/stylesheets/all-share.css">
+  <link rel="stylesheet" href="/blog-assets/stylesheets/blog-style.css">
   <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
   <link rel="shortcut icon" href="/favicon/favicon.ico" />
@@ -49,6 +50,17 @@
   </main>
   <script src="/pagefind/pagefind-ui.js"></script>
   <script src="/blog-assets/share.js"></script>
+  <script>
+    var lastNavLink = document.querySelector('nav a:last-of-type');
+    if (lastNavLink) {
+      lastNavLink.addEventListener('click', function (e) {
+        if (this.href === location.href) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>

@@ -10,18 +10,27 @@ module.exports = function (eleventyConfig) {
     html: true,
     breaks: true,
     linkify: true,
-  })
-    .use(markdownItObsidian({ baseURL: "/blog/" }))
-    .use(markdownItAnchor, {
-      permalink: markdownItAnchor.permalink.headerLink(),
-      level: [2, 3, 4, 5, 6],
-      slugify: (s) =>
-        s
-          .trim()
-          .toLowerCase()
-          .replace(/[\s]+/g, "-")
-          .replace(/[^\w-]/g, ""),
-    });
+  }).use(markdownItAnchor, {
+    renderPermalink: (slug, opts, state, idx) => {
+      const level = parseInt(state.tokens[idx].tag.slice(1), 10);
+      const symbol = "#".repeat(level - 1);
+      const linkOpen = new state.Token("html_inline", "", 0);
+      linkOpen.content = `<a class="header-anchor" href="#${slug}" aria-hidden="true" tabindex="-1">`;
+      const text = new state.Token("html_inline", "", 0);
+      text.content = symbol;
+      const linkClose = new state.Token("html_inline", "", 0);
+      linkClose.content = "</a>";
+      const tokens = state.tokens[idx + 1].children;
+      tokens.push(linkOpen, text, linkClose);
+    },
+    level: [2, 3, 4, 5, 6],
+    slugify: (s) =>
+      s
+        .trim()
+        .toLowerCase()
+        .replace(/[\s]+/g, "-")
+        .replace(/[^\w-]/g, ""),
+  });
   eleventyConfig.setLibrary("md", markdownLib);
 
   // 2. THE ASSET PIPELINE
