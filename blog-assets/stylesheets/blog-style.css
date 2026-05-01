@@ -20,6 +20,7 @@
 #blog-logo {
   width: 40px;
   height: 40px;
+  opacity: 0.9;
 }
 
 .blog-nav {
