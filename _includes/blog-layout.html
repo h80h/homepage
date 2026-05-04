@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" {% if pagefindIgnore %}data-pagefind-ignore="all" {% endif %}>
 
 <head>
   <meta charset="UTF-8">
@@ -21,35 +21,47 @@
   <meta name="apple-mobile-web-app-title" content="hedi's blog" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
 
-<body class="blog-theme" data-tags="{{ tags | join(' ') }}">
-  <header>
-    <div class="nav-search-wrap">
-      <nav>
-        <a href="/blog/" {% if not category_folder %}class="nav-current" {% endif %}>blog</a>
-        {% if category_folder %}
-        <span class="breadcrumb-symbol">›</span>
-        <a href="/{{ category_url }}/" class="nav-current">{{ category_folder }}</a>
-        {% endif %}
-      </nav>
-      <div id="search"></div>
-      <div id="theme-toggle">
-        <span id="light-theme-symbol">𖤓</span>
-        <span id="dark-theme-symbol">☾</span>
+  <body class="blog-theme" data-tags="{{ tags | join(' ') }}">
+    <header>
+      <div class="nav-search-wrap">
+        <nav>
+          <a href="/blog/" {% if not category_folder %}class="nav-current" {% endif %}>blog</a>
+          {% if category_folder %}
+          <span class="breadcrumb-symbol">›</span>
+          <a href="/{{ category_url }}/" class="nav-current">{{ category_folder }}</a>
+          {% endif %}
+        </nav>
+        <div id="search"></div>
       </div>
-    </div>
-  </header>
-  <main {% if pagefindIgnore %}data-pagefind-ignore="all" {% endif %}>
-    {% if not pagefindIgnore %}
-    <article data-pagefind-body>
+    </header>
+    <main>
+      <div class="blog-title-container">
+        <div class="blog-title">⋆ . ˚ {{ title | doubleStruck }} ˚ · ⋆</div>
+      </div>
+     
+      {% if not pagefindIgnore %}
+      <article data-pagefind-body>
+        {{ content | safe }}
+      </article>
+      {% else %}
       {{ content | safe }}
-    </article>
-    {% else %}
-    {{ content | safe }}
-    {% endif %}
-  </main>
-  <script src="/pagefind/pagefind-ui.js"></script>
-  <script src="/blog-assets/share.js"></script>
+      {% endif %}
+    </main>
+    <footer>
+      <div id="footer-container">
+        <div>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></div>
+        <div>explore more by visiting the <a href="../">homepage</a></div>
+        <div>contact me: hi@h80h.xyz</div>
+        <div id="theme-toggle">
+          <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
+          <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
+        </div>
+        <img id="h80h-favi" src="/favicon/favicon-96x96.png">
+      </div>
+    </footer>
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <script src="/blog-assets/share.js"></script>
 
-</body>
+  </body>
 
 </html>

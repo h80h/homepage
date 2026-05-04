@@ -5,6 +5,7 @@ const markdownItObsidian = require("markdown-it-obsidian");
 const markdownItAnchor = require("markdown-it-anchor");
 
 module.exports = function (eleventyConfig) {
+  eleventyConfig.ignores.add("blog-source/Templates/**");
   // 1. THE OBSIDIAN BRIDGE
   let markdownLib = markdownIt({
     html: true,
@@ -31,6 +32,24 @@ module.exports = function (eleventyConfig) {
         .replace(/[\s]+/g, "-")
         .replace(/[^\w-]/g, ""),
   });
+  // Prevent Pagefind from indexing image URLs and alt text.
+  // Pagefind indexes src attributes even inside data-pagefind-ignore containers,
+  // so we move src to data-src and restore it at runtime via share.js.
+  markdownLib.renderer.rules.image = function (
+    tokens,
+    idx,
+    options,
+    env,
+    self,
+  ) {
+    const token = tokens[idx];
+    const src = token.attrGet("src") || "";
+    token.attrSet("src", "");
+    token.attrSet("data-src", src);
+    const imgHtml = self.renderToken(tokens, idx, options);
+    return `<figure data-pagefind-ignore>${imgHtml}</figure>`;
+  };
+
   eleventyConfig.setLibrary("md", markdownLib);
 
   // 2. THE ASSET PIPELINE

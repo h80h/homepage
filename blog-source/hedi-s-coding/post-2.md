@@ -6,7 +6,7 @@ modified: 2026-04-26
 # Code Playground Test, Image Test
 
 now let me test how the verdana font works when it's a `<p>` element
-測試中文 `<li>` type more words to see the position of words between lines
+測試一整句中文句子(測試結果：不要寫中文貼文，不便於搜尋，反正英文是公認的國際語言) `<li>` type more words to see the position of words between lines
 
 ```playground
 ---html---

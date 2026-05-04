@@ -1,21 +1,24 @@
 window.addEventListener("DOMContentLoaded", () => {
+  // Restore image src from data-src (src was blanked at build time to hide URLs from Pagefind)
+  document.querySelectorAll("img[data-src]").forEach((img) => {
+    img.src = img.dataset.src;
+  });
+
   new PagefindUI({
     element: "#search",
     showSubResults: true,
     placeholder: "",
-    processResult: (result) => {
-      // Only suppress the page-level excerpt when there are genuine heading
-      // sub-results (i.e. sub-results with a real #anchor in their URL).
-      // Results without heading anchors keep their excerpt untouched.
-      if (result.sub_results) {
-        const hasHeadingSubResult = result.sub_results.some(
-          (sub) => sub.url && sub.url.includes("#"),
-        );
-        if (hasHeadingSubResult) {
-          result.excerpt = "";
-        }
-      }
-      return result;
+    processTerm: (term) => {
+      if (!term) return term;
+      if (term.includes('"')) return term;
+
+      const words = term.split(/\s+/).filter(Boolean);
+
+      // Single word: let Pagefind stem it naturally
+      if (words.length === 1) return term;
+
+      // Multiple words: quote each to force exact matching per word
+      return words.map((word) => `"${word}"`).join(" ");
     },
   });
 
