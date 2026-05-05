@@ -5,12 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hedi's blog</title>
+  <link rel="preload" href="/fonts/barlow_condensedregular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jbmono.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     (function () {
       var stored = localStorage.getItem('theme');
       if (stored) document.documentElement.setAttribute('data-theme', stored);
     })();
   </script>
+  <link rel="preconnect" href="https://blog-assets.3chih21.workers.dev">
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
   <link rel="stylesheet" href="/blog-assets/stylesheets/all-share.css">
   <link rel="stylesheet" href="/blog-assets/stylesheets/blog-style.css">
@@ -21,47 +24,47 @@
   <meta name="apple-mobile-web-app-title" content="hedi's blog" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
 
-  <body class="blog-theme" data-tags="{{ tags | join(' ') }}">
-    <header>
-      <div class="nav-search-wrap">
-        <nav>
-          <a href="/blog/" {% if not category_folder %}class="nav-current" {% endif %}>blog</a>
-          {% if category_folder %}
-          <span class="breadcrumb-symbol">›</span>
-          <a href="/{{ category_url }}/" class="nav-current">{{ category_folder }}</a>
-          {% endif %}
-        </nav>
-        <div id="search"></div>
-      </div>
-    </header>
-    <main>
-      <div class="blog-title-container">
-        <div class="blog-title">⋆ . ˚ {{ title | doubleStruck }} ˚ · ⋆</div>
-      </div>
-     
-      {% if not pagefindIgnore %}
-      <article data-pagefind-body>
-        {{ content | safe }}
-      </article>
-      {% else %}
-      {{ content | safe }}
-      {% endif %}
-    </main>
-    <footer>
-      <ul id="footer-container">
-        <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
-        <li>explore more by visiting the <a href="../" target="_blank">homepage</a></li>
-        <li>contact me: hi@h80h.xyz</li>
-        <div id="theme-toggle">
-          <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
-          <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
-        </div>
-        <img id="h80h-favi" src="/favicon/favicon-96x96.png">
-      </ul>
-    </footer>
-    <script src="/pagefind/pagefind-ui.js"></script>
-    <script src="/blog-assets/share.js"></script>
+<body class="blog-theme" data-tags="{{ tags | join(' ') }}">
+  <header>
+    <div class="nav-search-wrap">
+      <nav>
+        <a href="/blog/" {% if not category_folder %}class="nav-current" {% endif %}>blog</a>
+        {% if category_folder %}
+        <span class="breadcrumb-symbol">›</span>
+        <a href="/{{ category_url }}/" class="nav-current">{{ category_folder }}</a>
+        {% endif %}
+      </nav>
+      <div id="search"></div>
+    </div>
+  </header>
+  <main>
+    <div class="blog-title-container">
+      <div class="blog-title">⋆ . ˚ {{ title | doubleStruck }} ˚ · ⋆</div>
+    </div>
 
-  </body>
+    {% if not pagefindIgnore %}
+    <article data-pagefind-body>
+      {{ content | safe }}
+    </article>
+    {% else %}
+    {{ content | safe }}
+    {% endif %}
+  </main>
+  <footer>
+    <ul id="footer-container">
+      <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
+      <li>explore more by visiting the <a href="../" target="_blank">homepage</a></li>
+      <li>contact me: hi@h80h.xyz</li>
+      <div id="theme-toggle">
+        <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
+        <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
+      </div>
+      <img id="h80h-favi" src="/favicon/favicon-96x96.png">
+    </ul>
+  </footer>
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script src="/blog-assets/share.js"></script>
+
+</body>
 
 </html>

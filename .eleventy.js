@@ -46,6 +46,8 @@ module.exports = function (eleventyConfig) {
     const src = token.attrGet("src") || "";
     token.attrSet("src", "");
     token.attrSet("data-src", src);
+    token.attrSet("loading", "lazy");
+    token.attrSet("decoding", "async");
     const imgHtml = self.renderToken(tokens, idx, options);
     return `<figure data-pagefind-ignore>${imgHtml}</figure>`;
   };
