@@ -14,6 +14,7 @@
   color: #6e6eb3;
   text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
   line-height: 36px;
+  margin-bottom: 10px;
 }
 
 .blog-nav {
