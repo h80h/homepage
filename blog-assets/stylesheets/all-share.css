@@ -325,6 +325,8 @@ footer {
   width: 860px;
   font-size: 16px;
   position: relative;
+  list-style-type: square;
+  list-style-position: inside;
 }
 
 #theme-toggle {
