@@ -92,6 +92,12 @@
   min-width: 45px;
 }
 
+/* 404 */
+#milady-not-found {
+  display: flex;
+  justify-content: center;
+}
+
 @media(max-width: 820px) {
   .category {
     font-size: 11px;

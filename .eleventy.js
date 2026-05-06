@@ -176,6 +176,16 @@ module.exports = function (eleventyConfig) {
       X: "𝕏",
       Y: "𝕐",
       Z: "ℤ",
+      0: "𝟘",
+      1: "𝟙",
+      2: "𝟚",
+      3: "𝟛",
+      4: "𝟜",
+      5: "𝟝",
+      6: "𝟞",
+      7: "𝟟",
+      8: "𝟠",
+      9: "𝟡"
     };
     return [...str].map((c) => map[c] ?? c).join("");
   });

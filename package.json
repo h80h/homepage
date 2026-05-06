@@ -6,7 +6,7 @@
     "start": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy && npx pagefind --site blog",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
-    "dev": "npm run build && npx serve . -p 3000"
+    "dev": "npm run build && node server.js"
   },
   "author": "h80h",
   "license": "MIT",

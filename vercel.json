@@ -2,12 +2,21 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
-  
+
   "redirects": [
     {
       "source": "/favicon.ico",
       "destination": "/favicon/favicon.ico",
       "permanent": true
+    }
+  ],
+
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/(.*)",
+      "dest": "/blog/404.html",
+      "status": 404
     }
   ]
 }
