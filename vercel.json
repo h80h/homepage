@@ -1,5 +1,4 @@
 {
-  "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
 
@@ -14,8 +13,8 @@
   "routes": [
     { "handle": "filesystem" },
     {
-      "src": "/(.*)",
-      "dest": "/blog/404.html",
+      "src": "/blog/(.*)",
+      "dest": "/blog/404",
       "status": 404
     }
   ]
