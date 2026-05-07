@@ -214,6 +214,13 @@ module.exports = function (eleventyConfig) {
     const getGitDates = (filePath) => {
       if (gitDateCache[filePath]) return gitDateCache[filePath];
       try {
+        // Ensure full history is available (CI often does a shallow clone).
+        // This is a no-op on a full clone and safe to call repeatedly.
+        try {
+          execSync("git fetch --unshallow 2>/dev/null || true", {
+            encoding: "utf8",
+          });
+        } catch {}
         const log = execSync(`git log --format=%ci -- "${filePath}"`, {
           encoding: "utf8",
         }).trim();
@@ -225,7 +232,14 @@ module.exports = function (eleventyConfig) {
             lastRaw: null,
           });
         const lines = log.split("\n");
+        // Git outputs timestamps like "2026-05-08 01:23:45 +0800".
+        // Parsing with new Date() and calling getDate() uses the Node process
+        // timezone (often UTC on servers), which can shift the date by a day.
+        // Instead, read the date part directly from the git string so the
+        // displayed date always matches the committer's local calendar date.
         const fmt = (line) => {
+          const match = line.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+          if (match) return `${match[1]}-${match[2]}-${match[3]}`;
           const d = new Date(line.trim());
           return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
         };
@@ -376,6 +390,24 @@ module.exports = function (eleventyConfig) {
       9: "𝟡",
     };
     return [...str].map((c) => map[c] ?? c).join("");
+  });
+
+  // STICKY HEADER SCROLL OFFSET
+  // Headings that are jump targets need scroll-margin-top equal to the
+  // sticky header height (≈54 px) so they aren't obscured after navigation.
+  eleventyConfig.addTransform("anchor-scroll-margin", function (content) {
+    if (
+      !this.outputPath ||
+      typeof this.outputPath !== "string" ||
+      !this.outputPath.endsWith(".html")
+    ) {
+      return content;
+    }
+    const style =
+      "<style>html{scroll-behavior:smooth}h1,h2,h3,h4,h5,h6{scroll-margin-top:54px}</style>";
+    if (content.includes("</head>"))
+      return content.replace("</head>", style + "</head>");
+    return content;
   });
 
   // PLAYGROUND TRANSFORM
