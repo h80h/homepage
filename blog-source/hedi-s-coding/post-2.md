@@ -1,7 +1,7 @@
 ---
 title: Code Playground Test, Image Test
 created: 2026-04-26T09:42:15+08:00
-modified: 2026-05-07T16:36:28+08:00
+modified: 2026-05-08T05:45:23+08:00
 post-id: 2
 ---
 # Code Playground Test, Image Test
@@ -212,7 +212,7 @@ function greet() {
 
 ```
 
-![avatarimage.png|114](https://blog-assets.3chih21.workers.dev/blog/202604/22/avatarimage.png?rDRIbGo7NW)
+![avatarimage.png|64](https://blog-assets.3chih21.workers.dev/blog/202604/22/avatarimage.png?rDRIbGo7NW)
 ### h3 Test Test Test!
 
 ```playground
@@ -247,3 +247,6 @@ function greet() {
 ---js---
 
 ```
+![taruchi.png|60](https://blog-assets.3chih21.workers.dev/blog/202605/08/taruchi.png?fmPT2qk2Ln)
+
+![a-lil-kami-ipad-player.png](https://blog-assets.3chih21.workers.dev/blog/202605/08/a-lil-kami-ipad-player.png)

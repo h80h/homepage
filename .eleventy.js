@@ -36,9 +36,108 @@ module.exports = function (eleventyConfig) {
           .replace(/[\s]+/g, "-")
           .replace(/[^\w-]/g, ""),
     });
-  // Prevent Pagefind from indexing image URLs and alt text.
-  // Pagefind indexes src attributes even inside data-pagefind-ignore containers,
-  // so we move src to data-src and restore it at runtime via share.js.
+  // Handle Obsidian ![[image|caption|width]] embeds ourselves before
+  // markdown-it-obsidian gets them. That plugin ignores the pipe segments,
+  // so ![[img.png|300]] would produce a broken src. We intercept the pattern
+  // here, resolve the filename, and emit a proper <figure> with optional
+  // caption and width. We also handle standard ![alt](url) images the same way.
+  //
+  // Obsidian pipe syntax:
+  //   ![[file.png]]                 → no caption, no width
+  //   ![[file.png|300]]             → no caption, width=300
+  //   ![[file.png|caption text]]    → caption, no width (non-numeric pipe = caption)
+  //   ![[file.png|caption text|300]]→ caption + width
+
+  const fs = require("fs");
+  const path = require("path");
+
+  // Walk the project once and build a filename→relative-path map.
+  // We cache it so repeated renders don't re-scan.
+  let _fileMap = null;
+  function getFileMap() {
+    if (_fileMap) return _fileMap;
+    _fileMap = {};
+    const skip = new Set([".git", "_site", "node_modules", ".obsidian"]);
+    function walk(dir) {
+      let entries;
+      try {
+        entries = fs.readdirSync(dir);
+      } catch {
+        return;
+      }
+      for (const entry of entries) {
+        if (skip.has(entry)) continue;
+        const full = path.join(dir, entry);
+        if (fs.statSync(full).isDirectory()) {
+          walk(full);
+        } else {
+          _fileMap[entry] = full;
+        }
+      }
+    }
+    walk(process.cwd());
+    return _fileMap;
+  }
+
+  function resolveObsidianSrc(filename) {
+    const map = getFileMap();
+    const abs = map[filename];
+    if (!abs) return "";
+    // Convert absolute path to a root-relative URL path
+    return abs.split(process.cwd())[1].replace(/\\/g, "/");
+  }
+
+  function buildFigure(src, caption, widthStr) {
+    const widthAttr = widthStr ? ` width="${widthStr}"` : "";
+    const styleAttr = widthStr ? ` style="max-width:${widthStr}px"` : "";
+    const altAttr = caption ? ` alt="${caption}"` : "";
+    const imgTag = `<img src="${src}"${altAttr}${widthAttr} loading="lazy" decoding="async" />`;
+    const figcaption = caption ? `<figcaption>${caption}</figcaption>` : "";
+    return `<figure${styleAttr}>${imgTag}${figcaption}</figure>`;
+  }
+
+  // Core rule that runs BEFORE the inline pass so we can rewrite ![[...]] in
+  // the raw source of each inline token before markdown-it-obsidian sees it.
+  // markdown-it-obsidian ignores pipe segments (caption/width) and can't resolve
+  // filenames that include "|300", so we take ownership of ![[]] image embeds here.
+  markdownLib.core.ruler.before("inline", "obsidian_image_embed", (state) => {
+    const EMBED_RE = /!\[\[([^\]#|]*)(\|[^\]]*)?\]\]/g;
+    for (const blockToken of state.tokens) {
+      if (blockToken.type !== "inline") continue;
+      const content = blockToken.content;
+      if (!content.includes("![[")) continue;
+      let result = "";
+      let last = 0;
+      let m;
+      EMBED_RE.lastIndex = 0;
+      while ((m = EMBED_RE.exec(content)) !== null) {
+        result += content.slice(last, m.index);
+        const filename = m[1].trim();
+        const pipes = m[2] ? m[2].slice(1).split("|") : [];
+        let caption = "";
+        let widthStr = "";
+        if (pipes.length === 1) {
+          if (/^\d+$/.test(pipes[0].trim())) widthStr = pipes[0].trim();
+          else caption = pipes[0].trim();
+        } else if (pipes.length >= 2) {
+          caption = pipes[0].trim();
+          if (/^\d+$/.test(pipes[1].trim())) widthStr = pipes[1].trim();
+        }
+        const src = resolveObsidianSrc(filename);
+        result += buildFigure(src || filename, caption, widthStr);
+        last = m.index + m[0].length;
+      }
+      if (last === 0) continue; // no matches, skip
+      result += content.slice(last);
+      blockToken.content = result;
+    }
+  });
+
+  // Standard markdown ![alt](url) images — wrap in <figure> the same way.
+  // Standard markdown images: ![filename.png|300](url)
+  // The alt may contain a pipe-separated width (Obsidian convention when images
+  // are written in standard markdown syntax): "filename.png|64" splits into
+  // caption="filename.png" and width=64. The numeric part is never shown as text.
   markdownLib.renderer.rules.image = function (
     tokens,
     idx,
@@ -48,14 +147,34 @@ module.exports = function (eleventyConfig) {
   ) {
     const token = tokens[idx];
     const src = token.attrGet("src") || "";
-    // Keep src intact so RSS readers (e.g. NetNewsWire) can display images.
-    // data-pagefind-ignore on the <figure> already prevents Pagefind from
-    // indexing the whole block, so moving src to data-src is not needed.
+    const rawAlt =
+      token.children?.map((t) => t.content).join("") ||
+      token.attrGet("alt") ||
+      "";
+
+    // Parse "name|300" → caption="name", widthStr="300"
+    const pipeIdx = rawAlt.lastIndexOf("|");
+    let caption = rawAlt;
+    let widthStr = "";
+    if (pipeIdx !== -1) {
+      const after = rawAlt.slice(pipeIdx + 1).trim();
+      if (/^\d+$/.test(after)) {
+        caption = rawAlt.slice(0, pipeIdx).trim();
+        widthStr = after;
+      }
+    }
+
+    const displayW = widthStr ? parseInt(widthStr, 10) : null;
+    const styleAttr = displayW ? ` style="max-width:${displayW}px"` : "";
+
     token.attrSet("src", src);
     token.attrSet("loading", "lazy");
     token.attrSet("decoding", "async");
+    if (caption) token.attrSet("alt", caption);
+    if (displayW) token.attrSet("width", String(displayW));
     const imgHtml = self.renderToken(tokens, idx, options);
-    return `<figure data-pagefind-ignore>${imgHtml}</figure>`;
+    const figcaption = caption ? `<figcaption>${caption}</figcaption>` : "";
+    return `<figure${styleAttr}>${imgHtml}${figcaption}</figure>`;
   };
 
   eleventyConfig.setLibrary("md", markdownLib);
