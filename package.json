@@ -4,7 +4,7 @@
   "description": "Personal homepage and Obsidian-powered blog",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy && npx pagefind --site blog",
+    "build": "git fetch --unshallow || true && npx @11ty/eleventy && npx pagefind --site blog",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "dev": "npm run build && node server.js"
   },

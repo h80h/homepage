@@ -214,13 +214,6 @@ module.exports = function (eleventyConfig) {
     const getGitDates = (filePath) => {
       if (gitDateCache[filePath]) return gitDateCache[filePath];
       try {
-        // Ensure full history is available (CI often does a shallow clone).
-        // This is a no-op on a full clone and safe to call repeatedly.
-        try {
-          execSync("git fetch --unshallow 2>/dev/null || true", {
-            encoding: "utf8",
-          });
-        } catch {}
         const log = execSync(`git log --format=%ci -- "${filePath}"`, {
           encoding: "utf8",
         }).trim();
