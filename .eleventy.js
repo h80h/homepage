@@ -48,8 +48,10 @@ module.exports = function (eleventyConfig) {
   ) {
     const token = tokens[idx];
     const src = token.attrGet("src") || "";
-    token.attrSet("src", "");
-    token.attrSet("data-src", src);
+    // Keep src intact so RSS readers (e.g. NetNewsWire) can display images.
+    // data-pagefind-ignore on the <figure> already prevents Pagefind from
+    // indexing the whole block, so moving src to data-src is not needed.
+    token.attrSet("src", src);
     token.attrSet("loading", "lazy");
     token.attrSet("decoding", "async");
     const imgHtml = self.renderToken(tokens, idx, options);
