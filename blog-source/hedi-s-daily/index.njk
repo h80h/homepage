@@ -17,7 +17,17 @@ pagefindIgnore: true
     <li class="post-item">
       <a class="category category--daily" href="/daily/index.html">DAILY</a>
       <div class="post-title post-title--daily">{{ post.data.title }}</div>
-      <time class="date">{{ post.data.date | postDate }}</time>
+      <div class="date-container">
+        {% set gitFirst = post.inputPath | gitFirstCommit %}
+        {% set gitLast = post.inputPath | gitLastModified %}
+        {% if gitFirst and gitLast and gitFirst != gitLast %}
+        <time class="edited-date">Last edited: {{ gitLast }} <span class="info-toggle" title="show publish date"
+            aria-label="show publish date">𝒾</span></time>
+        <p class="date" hidden>{{ gitFirst }}</p>
+        {% else %}
+        <time class="date">{{ gitFirst or (post.data.created | postDate) }}</time>
+        {% endif %}
+      </div>
       <p class="post-preview">{{ post.templateContent | contentPreview(30) }}</p>
       <a class="read-more" href="{{ post.url }}">ʕ reᴥadʔっ</a>
     </li>

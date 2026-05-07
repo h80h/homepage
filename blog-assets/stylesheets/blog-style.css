@@ -8,13 +8,23 @@
 }
 
 .blog-title {
-  font-size: 28px;
+  font-size: 26px;
   text-align: center;
   font-family: 'barlow_condensedregular';
   color: #6e6eb3;
   text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff;
-  line-height: 36px;
+  line-height: 34px;
   margin-bottom: 10px;
+}
+
+.title-flower {
+  font-size: 10px;
+  padding: 0 5px;
+}
+
+.title-cross {
+  font-size: 18px;
+  padding: 0 5px;
 }
 
 .blog-nav {

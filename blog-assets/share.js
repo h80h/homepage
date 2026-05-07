@@ -1,4 +1,11 @@
 window.addEventListener("DOMContentLoaded", () => {
+  // Make markdown task-list checkboxes interactive
+  document
+    .querySelectorAll('.task-list-item input[type="checkbox"]')
+    .forEach((cb) => {
+      cb.removeAttribute("disabled");
+    });
+
   // Restore image src from data-src (src was blanked at build time to hide URLs from Pagefind)
   document.querySelectorAll("img[data-src]").forEach((img) => {
     img.src = img.dataset.src;
@@ -56,6 +63,15 @@ window.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     });
+
+  document.querySelectorAll(".info-toggle").forEach(function (toggle) {
+    toggle.addEventListener("click", function () {
+      const datePara = this.closest(".edited-date")?.nextElementSibling;
+      if (datePara && datePara.classList.contains("date")) {
+        datePara.hidden = !datePara.hidden;
+      }
+    });
+  });
 
   document
     .querySelector(".nav-current")

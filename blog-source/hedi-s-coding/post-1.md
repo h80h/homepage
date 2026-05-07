@@ -1,7 +1,8 @@
 ---
 title: Learn Vibe Coding by Making a Community Tool
-date: 2026-02-27
-modified: 2026-04-26
+created: 2026-04-26T09:42:15+08:00
+modified: 2026-05-07T16:36:33+08:00
+post-id: 1
 ---
 # Learn Vibe Coding by Making a Community Tool
 

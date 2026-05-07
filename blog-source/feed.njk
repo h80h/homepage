@@ -15,17 +15,23 @@ metadata:
   <title>{{ metadata.title }}</title>
   <link href="{{ permalink | absoluteUrl(metadata.url) }}" rel="self"/>
   <link href="{{ metadata.url }}"/>
-  <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  {%- set newestDate = collections.posts | getNewestCollectionItemDate %}
+  <lastBuildDate>{{ newestDate.toISOString() }}</lastBuildDate>
   <id>{{ metadata.url }}</id>
   <author>
     <n>{{ metadata.author.name }}</n>
   </author>
   {%- for post in collections.posts | reverse %}
   {%- set absolutePostUrl = post.url | absoluteUrl(metadata.url) %}
+  {%- set gitFirstRaw = post.inputPath | gitFirstCommitRaw %}
+  {%- set gitLastRaw = post.inputPath | gitLastModifiedRaw %}
+  {%- set pubDate = (gitFirstRaw | gitDateToRfc3339) or (post.date.toISOString()) %}
+  {%- set updatedDate = (gitLastRaw | gitDateToRfc3339) or pubDate %}
   <entry>
     <title>{{ post.data.title }}</title>
     <link href="{{ absolutePostUrl }}"/>
-    <updated>{{ post.date | dateToRfc3339 }}</updated>
+    <published>{{ pubDate }}</published>
+    <updated>{{ updatedDate }}</updated>
     <id>{{ absolutePostUrl }}</id>
     <category term="{{ post.data.category_name }}" />
     <content xml:base="{{ absolutePostUrl }}" type="html">

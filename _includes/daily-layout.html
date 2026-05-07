@@ -38,8 +38,18 @@
         </div>
     </header>
     <main>
-        <p class="date">{{page.date | postDate}}</p>
-        {{ content | safe }}
+      <div>
+        {% set gitFirst = page.inputPath | gitFirstCommit %}
+        {% set gitLast = page.inputPath | gitLastModified %}
+        {% if gitFirst and gitLast and gitFirst != gitLast %}
+        <p class="edited-date">Last edited: {{ gitLast }} <span class="info-toggle" title="show publish date"
+            aria-label="show publish date">𝒾</span></p>
+        <p class="date" hidden>{{ gitFirst }}</p>
+        {% else %}
+        <p class="date">{{ gitFirst or (page.date | postDate) }}</p>
+        {% endif %}
+      </div>
+      {{ content | safe }}
     </main>
     <footer>
       <ul id="footer-container">

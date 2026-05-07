@@ -3,6 +3,8 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 const markdownIt = require("markdown-it");
 const markdownItObsidian = require("markdown-it-obsidian");
 const markdownItAnchor = require("markdown-it-anchor");
+const markdownItTaskLists = require("markdown-it-task-lists");
+const { execSync } = require("child_process");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("blog-source/Templates/**");
@@ -11,27 +13,29 @@ module.exports = function (eleventyConfig) {
     html: true,
     breaks: true,
     linkify: true,
-  }).use(markdownItAnchor, {
-    renderPermalink: (slug, opts, state, idx) => {
-      const level = parseInt(state.tokens[idx].tag.slice(1), 10);
-      const symbol = "#".repeat(level - 1);
-      const linkOpen = new state.Token("html_inline", "", 0);
-      linkOpen.content = `<a class="header-anchor" href="#${slug}" aria-hidden="true" tabindex="-1">`;
-      const text = new state.Token("html_inline", "", 0);
-      text.content = symbol;
-      const linkClose = new state.Token("html_inline", "", 0);
-      linkClose.content = "</a>";
-      const tokens = state.tokens[idx + 1].children;
-      tokens.push(linkOpen, text, linkClose);
-    },
-    level: [2, 3, 4, 5, 6],
-    slugify: (s) =>
-      s
-        .trim()
-        .toLowerCase()
-        .replace(/[\s]+/g, "-")
-        .replace(/[^\w-]/g, ""),
-  });
+  })
+    .use(markdownItTaskLists, { enabled: true })
+    .use(markdownItAnchor, {
+      renderPermalink: (slug, opts, state, idx) => {
+        const level = parseInt(state.tokens[idx].tag.slice(1), 10);
+        const symbol = "#".repeat(level - 1);
+        const linkOpen = new state.Token("html_inline", "", 0);
+        linkOpen.content = `<a class="header-anchor" href="#${slug}" aria-hidden="true" tabindex="-1">`;
+        const text = new state.Token("html_inline", "", 0);
+        text.content = symbol;
+        const linkClose = new state.Token("html_inline", "", 0);
+        linkClose.content = "</a>";
+        const tokens = state.tokens[idx + 1].children;
+        tokens.push(linkOpen, text, linkClose);
+      },
+      level: [2, 3, 4, 5, 6],
+      slugify: (s) =>
+        s
+          .trim()
+          .toLowerCase()
+          .replace(/[\s]+/g, "-")
+          .replace(/[^\w-]/g, ""),
+    });
   // Prevent Pagefind from indexing image URLs and alt text.
   // Pagefind indexes src attributes even inside data-pagefind-ignore containers,
   // so we move src to data-src and restore it at runtime via share.js.
@@ -78,9 +82,72 @@ module.exports = function (eleventyConfig) {
   function timeFilter() {
     eleventyConfig.addFilter("postDate", (dateObj) => {
       const year = dateObj.getFullYear();
-      const month = dateObj.getMonth() + 1;
-      const day = dateObj.getDate();
-      return `${year}-0${month}-${day}`;
+      // Convert to string and pad with '0' to ensure two digits
+      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const day = String(dateObj.getDate()).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    });
+
+    const gitDateCache = {};
+    const getGitDates = (filePath) => {
+      if (gitDateCache[filePath]) return gitDateCache[filePath];
+      try {
+        const log = execSync(`git log --format=%ci -- "${filePath}"`, {
+          encoding: "utf8",
+        }).trim();
+        if (!log)
+          return (gitDateCache[filePath] = {
+            first: null,
+            last: null,
+            firstRaw: null,
+            lastRaw: null,
+          });
+        const lines = log.split("\n");
+        const fmt = (line) => {
+          const d = new Date(line.trim());
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        };
+        return (gitDateCache[filePath] = {
+          last: fmt(lines[0]),
+          first: fmt(lines[lines.length - 1]),
+          // raw git timestamps (e.g. "2026-04-25 14:32:11 +0800") for UTC conversion in feed
+          lastRaw: lines[0].trim(),
+          firstRaw: lines[lines.length - 1].trim(),
+        });
+      } catch (e) {
+        return (gitDateCache[filePath] = {
+          first: null,
+          last: null,
+          firstRaw: null,
+          lastRaw: null,
+        });
+      }
+    };
+
+    eleventyConfig.addFilter(
+      "gitFirstCommit",
+      (filePath) => getGitDates(filePath).first,
+    );
+    eleventyConfig.addFilter(
+      "gitLastModified",
+      (filePath) => getGitDates(filePath).last,
+    );
+    eleventyConfig.addFilter(
+      "gitFirstCommitRaw",
+      (filePath) => getGitDates(filePath).firstRaw,
+    );
+    eleventyConfig.addFilter(
+      "gitLastModifiedRaw",
+      (filePath) => getGitDates(filePath).lastRaw,
+    );
+
+    // Converts a raw git timestamp ("YYYY-MM-DD HH:mm:ss +HHMM") to UTC ISO 8601
+    // for use in feed.xml. new Date() correctly parses the timezone offset,
+    // and toISOString() always outputs UTC.
+    eleventyConfig.addFilter("gitDateToRfc3339", (rawStr) => {
+      if (!rawStr) return null;
+      return new Date(rawStr).toISOString();
     });
   }
 
@@ -185,7 +252,7 @@ module.exports = function (eleventyConfig) {
       6: "𝟞",
       7: "𝟟",
       8: "𝟠",
-      9: "𝟡"
+      9: "𝟡",
     };
     return [...str].map((c) => map[c] ?? c).join("");
   });

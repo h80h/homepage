@@ -293,6 +293,30 @@ h1,
   color: rgba(13, 49, 75, 0.7);
 }
 
+.info-toggle {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 0.6;
+  user-select: none;
+  margin-top: -0.5px;
+}
+
+.info-toggle:hover {
+  opacity: 1;
+}
+
+.edited-date {
+  font-size: 16px;
+  color: rgba(13, 49, 75, 0.7);
+  display: flex;
+  gap: 10px;
+}
+
+.edited-date+.date {
+  margin-top: 0;
+}
+
 p {
   margin-top: 1em;
   font-size: 18px;
@@ -302,7 +326,11 @@ main {
   padding: 0 10px 150px 10px;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 18px;
   font-weight: normal;
   color: rgba(13, 49, 75, 0.8) !important;
@@ -394,7 +422,7 @@ footer {
   }
 
   :root:not([data-theme="light"]) body,
-    :root:not([data-theme="light"]) footer {
+  :root:not([data-theme="light"]) footer {
     background-color: #0f172a;
     color: #e2e8f0;
     border-color: #e2e8f0;
@@ -445,7 +473,8 @@ footer {
     background: #baccc3 !important;
   }
 
-  :root:not([data-theme="light"]) .date {
+  :root:not([data-theme="light"]) .date,
+  :root:not([data-theme="light"]) .edited-date {
     color: #94a3b8;
   }
 
@@ -514,7 +543,8 @@ footer {
   background: #baccc3 !important;
 }
 
-[data-theme="dark"] .date {
+[data-theme="dark"] .date,
+[data-theme="dark"] .edited-date {
   color: #94a3b8;
 }
 
