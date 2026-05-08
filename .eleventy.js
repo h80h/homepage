@@ -184,6 +184,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("blog-assets");
   eleventyConfig.addPassthroughCopy("favicon");
   eleventyConfig.addPassthroughCopy("fonts");
+  eleventyConfig.addPassthroughCopy("_redirects");
 
   // 3. THE PLUGINS
   eleventyConfig.addPlugin(pluginRss);
