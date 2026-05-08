@@ -23,7 +23,7 @@
 </head>
 
 <body class="daily-theme" data-tags="{{ tags | join(' ') }}">
-  <header data-pagefind-ignore="all">
+  <header>
     <div class="nav-search-wrap">
       <nav>
         <div class="nav-top-container">
@@ -40,7 +40,7 @@
     </div>
   </header>
   <main>
-    <div data-pagefind-ignore="all">
+    <div data-pagefind-body>
       {% set gitFirst = page.inputPath | gitFirstCommit %}
       {% set gitLast = page.inputPath | gitLastModified %}
       {% if gitFirst and gitLast and gitFirst != gitLast %}
@@ -55,16 +55,16 @@
       {{ content | safe }}
     </article>
   </main>
-  <footer data-pagefind-ignore="all">
+  <footer>
     <ul id="footer-container">
       <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
-      <li>explore more by visiting the <a href="../" target="_blank">homepage</a></li>
+      <li>explore more by visiting the <a href="https://h80h.xyz" target="_blank">homepage</a></li>
       <li>contact me: hi@h80h.xyz</li>
       <div id="theme-toggle">
         <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
         <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
       </div>
-      <img id="h80h-favi" src="/favicon/favicon-96x96.png">
+      <img id="h80h-favi" src="/favicon/favicon-96x96.png" data-pagefind-ignore="all">
     </ul>
   </footer>
   <script src="/pagefind/pagefind-ui.js"></script>
