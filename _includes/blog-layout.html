@@ -42,14 +42,7 @@
       <div class="blog-title">
         <span class="title-flower">❀</span><span class="title-cross">˖</span>⋆ {{ title | doubleStruck }} ⋆<span class="title-cross">˖</span><span class="title-flower">❀</span></div>
     </div>
-
-    {% if not pagefindIgnore %}
-    <article data-pagefind-body>
-      {{ content | safe }}
-    </article>
-    {% else %}
     {{ content | safe }}
-    {% endif %}
   </main>
   <footer>
     <ul id="footer-container">

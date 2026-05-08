@@ -1,70 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} • hedi's blog</title>
-    <script>
-      (function () {
-        var stored = localStorage.getItem('theme');
-        if (stored) document.documentElement.setAttribute('data-theme', stored);
-      })();
-    </script>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-    <link rel="stylesheet" href="/blog-assets/stylesheets/all-share.css">
-    <link rel="stylesheet" href="/blog-assets/stylesheets/post-share.css">
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="hedi's blog" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} • hedi's blog</title>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      if (stored) document.documentElement.setAttribute('data-theme', stored);
+    })();
+  </script>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="/blog-assets/stylesheets/all-share.css">
+  <link rel="stylesheet" href="/blog-assets/stylesheets/post-share.css">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="hedi's blog" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
 </head>
+
 <body class="daily-theme" data-tags="{{ tags | join(' ') }}">
-    <header>
-        <div class="nav-search-wrap">
-          <nav>
-            <div class="nav-top-container">
-              <a href="/blog/">blog</a>
-              <span class="breadcrumb-symbol">›</span>
-              <a href="/{{ category_url }}/">{{ category_folder }}</a>
-            </div>
-            <div class="nav-bottom-container">
-              <span class="breadcrumb-symbol">›</span>
-              <a class="post-title-nav" href="{{ page.url }}">{{ title }}</a>
-            </div>
-          </nav>
-          <div id="search"></div>
+  <header data-pagefind-ignore="all">
+    <div class="nav-search-wrap">
+      <nav>
+        <div class="nav-top-container">
+          <a href="/blog/">blog</a>
+          <span class="breadcrumb-symbol">›</span>
+          <a href="/{{ category_url }}/">{{ category_folder }}</a>
         </div>
-    </header>
-    <main>
-      <div>
-        {% set gitFirst = page.inputPath | gitFirstCommit %}
-        {% set gitLast = page.inputPath | gitLastModified %}
-        {% if gitFirst and gitLast and gitFirst != gitLast %}
-        <p class="edited-date">Last edited: {{ gitLast }} <span class="info-toggle" title="show publish date"
-            aria-label="show publish date">𝒾</span></p>
-        <p class="date" hidden>{{ gitFirst }}</p>
-        {% else %}
-        <p class="date">{{ gitFirst or (page.date | postDate) }}</p>
-        {% endif %}
-      </div>
+        <div class="nav-bottom-container">
+          <span class="breadcrumb-symbol">›</span>
+          <a class="post-title-nav" href="{{ page.url }}">{{ title }}</a>
+        </div>
+      </nav>
+      <div id="search"></div>
+    </div>
+  </header>
+  <main>
+    <div data-pagefind-ignore="all">
+      {% set gitFirst = page.inputPath | gitFirstCommit %}
+      {% set gitLast = page.inputPath | gitLastModified %}
+      {% if gitFirst and gitLast and gitFirst != gitLast %}
+      <p class="edited-date">Last edited: {{ gitLast }} <span class="info-toggle" title="show publish date"
+          aria-label="show publish date">𝒾</span></p>
+      <p class="date" hidden>{{ gitFirst }}</p>
+      {% else %}
+      <p class="date">{{ gitFirst or (page.date | postDate) }}</p>
+      {% endif %}
+    </div>
+    <article data-pagefind-body>
       {{ content | safe }}
-    </main>
-    <footer>
-      <ul id="footer-container">
-        <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
-        <li>explore more by visiting the <a href="../" target="_blank">homepage</a></li>
-        <li>contact me: hi@h80h.xyz</li>
-        <div id="theme-toggle">
-          <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
-          <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
-        </div>
-        <img id="h80h-favi" src="/favicon/favicon-96x96.png">
-      </ul>
-    </footer>
-    <script src="/pagefind/pagefind-ui.js"></script>
-    <script src="/blog-assets/share.js"></script>
+    </article>
+  </main>
+  <footer data-pagefind-ignore="all">
+    <ul id="footer-container">
+      <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
+      <li>explore more by visiting the <a href="../" target="_blank">homepage</a></li>
+      <li>contact me: hi@h80h.xyz</li>
+      <div id="theme-toggle">
+        <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
+        <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
+      </div>
+      <img id="h80h-favi" src="/favicon/favicon-96x96.png">
+    </ul>
+  </footer>
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script src="/blog-assets/share.js"></script>
 
 </body>
+
 </html>

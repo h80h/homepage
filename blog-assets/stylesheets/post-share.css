@@ -3,6 +3,6 @@ nav {
   flex-direction: column;
 }
 
-figcaption {
+.figcaption {
   font-size: 14px;
 }

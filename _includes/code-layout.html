@@ -24,7 +24,7 @@
 </head>
 
 <body class="code-theme" data-tags="{{ tags | join(' ') }}">
-  <header>
+  <header data-pagefind-ignore="all">
     <div class="nav-search-wrap">
       <nav>
         <div class="nav-top-container">
@@ -41,7 +41,7 @@
     </div>
   </header>
   <main>
-    <div>
+    <div data-pagefind-ignore="all">
       {% set gitFirst = page.inputPath | gitFirstCommit %}
       {% set gitLast = page.inputPath | gitLastModified %}
       {% if gitFirst and gitLast and gitFirst != gitLast %}
@@ -52,9 +52,11 @@
       <p class="date">{{ gitFirst or (page.date | postDate) }}</p>
       {% endif %}
     </div>
-    {{ content | safe }}
+    <article data-pagefind-body>
+      {{ content | safe }}
+    </article>
   </main>
-  <footer>
+  <footer data-pagefind-ignore="all">
     <ul id="footer-container">
       <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
       <li>explore more by visiting the <a href="../" target="_blank">homepage</a></li>
@@ -70,4 +72,5 @@
   <script src="/blog-assets/share.js"></script>
 
 </body>
+
 </html>

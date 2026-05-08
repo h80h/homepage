@@ -92,8 +92,10 @@ module.exports = function (eleventyConfig) {
     const styleAttr = widthStr ? ` style="max-width:${widthStr}px"` : "";
     const altAttr = caption ? ` alt="${caption}"` : "";
     const imgTag = `<img src="${src}"${altAttr}${widthAttr} loading="lazy" decoding="async" />`;
-    const figcaption = caption ? `<figcaption>${caption}</figcaption>` : "";
-    return `<figure${styleAttr}>${imgTag}${figcaption}</figure>`;
+    
+    return `<div  data-pagefind-ignore="all">${imgTag}</div>
+    <div class="figcaption">${caption}</div>
+    `;
   }
 
   // Core rule that runs BEFORE the inline pass so we can rewrite ![[...]] in
@@ -173,8 +175,9 @@ module.exports = function (eleventyConfig) {
     if (caption) token.attrSet("alt", caption);
     if (displayW) token.attrSet("width", String(displayW));
     const imgHtml = self.renderToken(tokens, idx, options);
-    const figcaption = caption ? `<figcaption>${caption}</figcaption>` : "";
-    return `<figure${styleAttr}>${imgHtml}${figcaption}</figure>`;
+    return `<div  data-pagefind-ignore="all">${imgHtml}</div>
+    <div class="figcaption">${caption}</div>
+    `;
   };
 
   eleventyConfig.setLibrary("md", markdownLib);
