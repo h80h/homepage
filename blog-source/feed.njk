@@ -21,7 +21,7 @@ metadata:
   <author>
     <name>{{ metadata.author.name }}</name>
   </author>
-  {%- for post in collections.posts | reverse %}
+  {%- for post in collections.posts %}
   {%- set absolutePostUrl = (metadata.url + post.url.slice(1)) %}
   {%- set gitFirstRaw = post.inputPath | gitFirstCommitRaw %}
   {%- set gitLastRaw = post.inputPath | gitLastModifiedRaw %}

@@ -12,7 +12,7 @@ permalink: /daily/index.html
 
 <ul class="post-list">
   {# We loop through the 'hedi-s-daily' tag we defined in the JSON file #}
-  {% for post in collections["hedi-s-daily"] | reverse %}
+  {% for post in collections["hedi-s-daily-sorted"] %}
     <li class="post-item">
       <a class="category category--daily" href="/daily/index.html">DAILY</a>
       <div class="post-title post-title--daily">{{ post.data.title }}</div>

@@ -11,7 +11,7 @@ layout: "blog-layout.html"
 
 <ul class="post-list">
   {# This loops through EVERY post in the 'posts' collection #}
-  {% for post in collections.posts | reverse %}
+  {% for post in collections.posts %}
     <li class="post-item">
       {% if post.data.category_name == "hedi's coding" %}
         <a class="category category--code" href="/code/">CODE!</a>

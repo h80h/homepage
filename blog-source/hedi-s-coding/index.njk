@@ -12,7 +12,7 @@ permalink: /code/index.html
 
 <ul class="post-list">
   {# We loop through the 'hedi-s-coding' tag we defined in the JSON file #}
-  {% for post in collections["hedi-s-coding"] | reverse %}
+  {% for post in collections["hedi-s-coding-sorted"] %}
     <li class="post-item">
       <a class="category category--code" href="/code/">CODE!</a>
       <div class="post-title post-title--code">{{ post.data.title }}</div>

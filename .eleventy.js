@@ -105,6 +105,49 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.setDataDeepMerge(true);
 
+  const gitDateCache = {};
+  const getGitDates = (filePath) => {
+    if (gitDateCache[filePath]) return gitDateCache[filePath];
+    try {
+      const log = execSync(`git log --format=%ci -- "${filePath}"`, {
+        encoding: "utf8",
+      }).trim();
+      if (!log)
+        return (gitDateCache[filePath] = {
+          first: null,
+          last: null,
+          firstRaw: null,
+          lastRaw: null,
+        });
+      const lines = log.split("\n");
+      // Git outputs timestamps like "2026-05-08 01:23:45 +0800".
+      // Parsing with new Date() and calling getDate() uses the Node process
+      // timezone (often UTC on servers), which can shift the date by a day.
+      // Instead, read the date part directly from the git string so the
+      // displayed date always matches the committer's local calendar date.
+      const fmt = (line) => {
+        const match = line.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (match) return `${match[1]}-${match[2]}-${match[3]}`;
+        const d = new Date(line.trim());
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      };
+      return (gitDateCache[filePath] = {
+        last: fmt(lines[0]),
+        first: fmt(lines[lines.length - 1]),
+        // raw git timestamps (e.g. "2026-04-25 14:32:11 +0800") for UTC conversion in feed
+        lastRaw: lines[0].trim(),
+        firstRaw: lines[lines.length - 1].trim(),
+      });
+    } catch (e) {
+      return (gitDateCache[filePath] = {
+        first: null,
+        last: null,
+        firstRaw: null,
+        lastRaw: null,
+      });
+    }
+  };
+
   function timeFilter() {
     eleventyConfig.addFilter("postDate", (dateObj) => {
       const year = dateObj.getFullYear();
@@ -114,49 +157,6 @@ module.exports = function (eleventyConfig) {
 
       return `${year}-${month}-${day}`;
     });
-
-    const gitDateCache = {};
-    const getGitDates = (filePath) => {
-      if (gitDateCache[filePath]) return gitDateCache[filePath];
-      try {
-        const log = execSync(`git log --format=%ci -- "${filePath}"`, {
-          encoding: "utf8",
-        }).trim();
-        if (!log)
-          return (gitDateCache[filePath] = {
-            first: null,
-            last: null,
-            firstRaw: null,
-            lastRaw: null,
-          });
-        const lines = log.split("\n");
-        // Git outputs timestamps like "2026-05-08 01:23:45 +0800".
-        // Parsing with new Date() and calling getDate() uses the Node process
-        // timezone (often UTC on servers), which can shift the date by a day.
-        // Instead, read the date part directly from the git string so the
-        // displayed date always matches the committer's local calendar date.
-        const fmt = (line) => {
-          const match = line.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
-          if (match) return `${match[1]}-${match[2]}-${match[3]}`;
-          const d = new Date(line.trim());
-          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-        };
-        return (gitDateCache[filePath] = {
-          last: fmt(lines[0]),
-          first: fmt(lines[lines.length - 1]),
-          // raw git timestamps (e.g. "2026-04-25 14:32:11 +0800") for UTC conversion in feed
-          lastRaw: lines[0].trim(),
-          firstRaw: lines[lines.length - 1].trim(),
-        });
-      } catch (e) {
-        return (gitDateCache[filePath] = {
-          first: null,
-          last: null,
-          firstRaw: null,
-          lastRaw: null,
-        });
-      }
-    };
 
     eleventyConfig.addFilter(
       "gitFirstCommit",
@@ -185,6 +185,28 @@ module.exports = function (eleventyConfig) {
   }
 
   timeFilter();
+
+  // Sort helper: newest gitFirstCommit first, fallback to page.date
+  const byGitFirst = (a, b) => {
+    const dateA =
+      getGitDates(a.inputPath).first ||
+      (a.date ? a.date.toISOString().slice(0, 10) : "");
+    const dateB =
+      getGitDates(b.inputPath).first ||
+      (b.date ? b.date.toISOString().slice(0, 10) : "");
+    return dateA < dateB ? 1 : dateA > dateB ? -1 : 0;
+  };
+
+  // POSTS COLLECTION sorted by git first commit date, newest first
+  eleventyConfig.addCollection("posts", (collectionApi) =>
+    collectionApi.getFilteredByTag("posts").sort(byGitFirst),
+  );
+  eleventyConfig.addCollection("hedi-s-coding-sorted", (collectionApi) =>
+    collectionApi.getFilteredByTag("hedi-s-coding").sort(byGitFirst),
+  );
+  eleventyConfig.addCollection("hedi-s-daily-sorted", (collectionApi) =>
+    collectionApi.getFilteredByTag("hedi-s-daily").sort(byGitFirst),
+  );
 
   // CONTENT PREVIEW FILTER
   eleventyConfig.addFilter("contentPreview", (content, wordCount = 30) => {
