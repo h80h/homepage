@@ -84,6 +84,7 @@ html {
 
 :root {
   --pagefind-ui-scale: 0.7;
+  --footer-height: 130px;
 }
 
 @font-face {
@@ -317,13 +318,19 @@ h1,
   margin-top: 0;
 }
 
+.edited-time-of-root-pages {
+  margin-top: 2em;
+}
+
 p {
   margin-top: 1em;
   font-size: 18px;
 }
 
 main {
-  padding: 0 10px 150px 10px;
+  padding: 0 10px calc(var(--footer-height) + 50px) 10px;
+  position: relative;
+  overflow: hidden;
 }
 
 h2,
@@ -370,12 +377,38 @@ footer {
   font-size: 20px;
 }
 
-#h80h-favi {
-  width: 20px;
-  height: 20px;
+#h80h-npc {
   position: absolute;
   right: 7px;
   bottom: 12px;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+#h80h-dialogue {
+  font-size: 14px;
+  color: rgba(110, 110, 179, 0.8);
+  border: 1px solid rgba(110, 110, 179, 0.8);
+  border-radius: 7px;
+  padding: 1px 5px;
+  background: rgb(241, 243, 255);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#clover {
+  font-size: 18px;
+  margin-top: -5px;
+}
+
+#h80h-favi {
+  width: 20px;
+  height: 20px;
+  cursor: help;
+  margin-top: -1px;
 }
 
 @media(max-width: 834px) {
@@ -397,13 +430,30 @@ footer {
     padding: 10px 8px 23px 13px;
   }
 
+  #footer-container li {
+    max-width: 300px;
+  }
+
   #theme-toggle {
     right: 13px;
   }
 
-  #h80h-favi {
+  #h80h-npc {
     right: 9px;
     bottom: 25px;
+    flex-direction: column;
+    align-items: unset;
+  }
+
+  #h80h-dialogue {
+    padding: 2px 7px;
+    gap: 5px;
+    max-width: 300px;
+  }
+
+  #h80h-favi {
+    align-self: flex-end;
+    margin-top: unset;
   }
 
   #search {
@@ -412,7 +462,9 @@ footer {
   }
 
   main {
-    padding: 0 13px 150px 13px;
+    padding: 0 13px calc(var(--footer-height) + 50px) 13px;
+    position: relative;
+    overflow: hidden;
   }
 }
 
@@ -485,6 +537,22 @@ footer {
   :root:not([data-theme="light"]) h6 {
     color: #e2e8f0 !important;
   }
+
+  :root:not([data-theme="light"]) #h80h-dialogue {
+    background: #5e5f9e;
+    color: #cbcdf7;
+    border-color: rgb(62, 62, 119);
+  }
+
+  :root:not([data-theme="light"]) #sweep-btn {
+    border-color: rgba(226, 232, 240, 0.3);
+    color: rgba(226, 232, 240, 0.4);
+  }
+
+  :root:not([data-theme="light"]) #sweep-btn:hover {
+    border-color: rgba(226, 232, 240, 0.4);
+    color: rgba(226, 232, 240, 0.5);
+  }
 }
 
 [data-theme="dark"] {
@@ -554,4 +622,136 @@ footer {
 [data-theme="dark"] h5,
 [data-theme="dark"] h6 {
   color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] #h80h-dialogue {
+  background: #5e5f9e;
+  color: #cbcdf7;
+  border-color: rgb(62, 62, 119);
+}
+
+[data-theme="dark"] #sweep-btn {
+  border-color: rgba(226, 232, 240, 0.3);
+  color: rgba(226, 232, 240, 0.4);
+}
+
+[data-theme="dark"] #sweep-btn:hover {
+  border-color: rgba(226, 232, 240, 0.4);
+  color: rgba(226, 232, 240, 0.5);
+}
+
+/* NPC dialogue animation */
+@keyframes dialogue-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dialogue-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+#h80h-dialogue {
+  opacity: 0;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+}
+
+#h80h-dialogue.dialogue-show {
+  animation-name: dialogue-in;
+}
+
+#h80h-dialogue.dialogue-hide {
+  animation-name: dialogue-out;
+}
+
+/* Falling leaves */
+.leaf {
+  position: absolute;
+  top: -2em;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  animation: leaf-fall linear forwards, leaf-sway ease-in-out infinite;
+  animation-duration: var(--leaf-duration), var(--leaf-sway-period);
+}
+
+@keyframes leaf-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+
+  8% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: translateY(var(--leaf-travel)) rotate(var(--leaf-rotation, 360deg));
+  }
+}
+
+@keyframes leaf-sway {
+  0% {
+    margin-left: 0;
+  }
+
+  50% {
+    margin-left: var(--leaf-sway);
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
+
+/* Resting leaves at the floor of main */
+.leaf-resting {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+/* Sweep button */
+#sweep-btn {
+  background: none;
+  border: 1px solid rgba(13, 49, 75, 0.3);
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-size: 11px;
+  color: rgba(13, 49, 75, 0.5);
+  cursor: pointer;
+  font-style: italic;
+  position: absolute;
+  bottom: 120px;
+  left: 10px;
+}
+
+#sweep-btn:hover {
+  color: rgba(13, 49, 75, 0.8);
+  border-color: rgba(13, 49, 75, 0.6);
+}
+
+@media(max-width: 834px) {
+  #sweep-btn {
+    left: 13px;
+    bottom: 150px;
+  }
 }

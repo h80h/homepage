@@ -40,9 +40,12 @@
   <main>
     <div class="blog-title-container">
       <div class="blog-title">
-        <span class="title-flower">❀</span><span class="title-cross">˖</span>⋆ {{ title | doubleStruck }} ⋆<span class="title-cross">˖</span><span class="title-flower">❀</span></div>
+        <span class="title-flower">❀</span><span class="title-cross">˖</span>⋆ {{ title | doubleStruck }} ⋆<span
+          class="title-cross">˖</span><span class="title-flower">❀</span>
+      </div>
     </div>
     {{ content | safe }}
+    <button id="sweep-btn" hidden>🧹 sweep</button>
   </main>
   <footer>
     <ul id="footer-container">
@@ -53,7 +56,12 @@
         <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
         <span id="dark-theme-symbol" title="switch-to-dark-mode">☾</span>
       </div>
-      <img id="h80h-favi" src="/favicon/favicon-96x96.png">
+      <div id="h80h-npc">
+        <div id="h80h-dialogue">
+          <div id="clover">☘︎</div>welcome to my blog!<div id="clover">☘︎</div>
+        </div>
+        <img id="h80h-favi" src="/favicon/favicon-96x96.png">
+      </div>
     </ul>
   </footer>
   <script src="/pagefind/pagefind-ui.js"></script>
