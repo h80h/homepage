@@ -331,6 +331,7 @@ main {
   padding: 0 10px calc(var(--footer-height) + 50px) 10px;
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 h2,
@@ -752,6 +753,6 @@ footer {
 @media(max-width: 834px) {
   #sweep-btn {
     left: 13px;
-    bottom: 150px;
+    bottom: 160px;
   }
 }
