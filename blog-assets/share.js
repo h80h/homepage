@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const main = document.querySelector("main");
   if (main) {
     let stackCount = 0;
-    const MAX_STACK = 99;
+    const MAX_STACK = 66;
     const SHOW_SWEEP_AT = 6;
 
     const sweepBtn = document.getElementById("sweep-btn");
