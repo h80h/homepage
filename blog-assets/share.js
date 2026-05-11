@@ -13,11 +13,11 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", syncFooterHeight);
 
   // Falling leaves
-  const leafSymbols = ["🌸"];
+  const leafSymbols = ["🍁"];
   const main = document.querySelector("main");
   if (main) {
     let stackCount = 0;
-    const MAX_STACK = 222;
+    const MAX_STACK = 99;
     const SHOW_SWEEP_AT = 6;
 
     const sweepBtn = document.getElementById("sweep-btn");
@@ -43,11 +43,11 @@ window.addEventListener("DOMContentLoaded", () => {
         leafSymbols[Math.floor(Math.random() * leafSymbols.length)];
       const leftPct = Math.random() * 96;
       el.style.left = leftPct + "%";
-      el.style.fontSize = 8 + Math.random() * 5 + "px";
+      el.style.fontSize = 12 + Math.random() * 8 + "px";
 
       // Travel to just above the 150px padding floor
       const distance = main.scrollHeight - floorPadding;
-      const speed = 20 + Math.random() * 30;
+      const speed = 10 + Math.random() * 30;
       const duration = distance / speed;
 
       const swayPx = 15 + Math.random() * 25;
@@ -92,8 +92,8 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-    for (let i = 0; i < 6; i++) setTimeout(spawnLeaf, Math.random() * 8000);
-    setInterval(spawnLeaf, 2200);
+    // for (let i = 0; i < 6; i++) setTimeout(spawnLeaf, Math.random() * 8000);
+    setInterval(spawnLeaf, 10000);
   }
 
   // Make markdown task-list checkboxes interactive
