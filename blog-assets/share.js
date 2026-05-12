@@ -46,12 +46,14 @@ window.addEventListener("DOMContentLoaded", () => {
         leafSymbols[Math.floor(Math.random() * leafSymbols.length)];
       const leftPct = Math.random() * 96;
       el.style.left = leftPct + "%";
-      el.style.fontSize = 12 + Math.random() * 8 + "px";
+      const fontSize = 12 + Math.random() * 8;
+      el.style.fontSize = fontSize + "px";
 
       // Cache scrollHeight to avoid repeated forced reflows
       const scrollHeight = main.scrollHeight;
       const distance = scrollHeight - floorPadding + 8;
-      const speed = 10 + Math.random() * 30;
+      // Larger leaves fall faster: fontSize 12→20px maps to speed 10→40px/s
+      const speed = 10 + ((fontSize - 12) / 8) * 30;
       const duration = distance / speed;
 
       const swayPx = 15 + Math.random() * 25;
@@ -90,7 +92,7 @@ window.addEventListener("DOMContentLoaded", () => {
         resting.style.left = landedLeft + "px";
 
         resting.style.transform = `rotate(${finalRotation})`;
-        
+
         resting.style.bottom = floorPadding + "px";
         main.appendChild(resting);
         stackCount++;
