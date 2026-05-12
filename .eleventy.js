@@ -355,19 +355,13 @@ module.exports = function (eleventyConfig) {
           .replace(/&quot;/g, '"')
           .replace(/&#39;/g, "'");
 
-        function get(lang) {
-          const m = decoded.match(
-            new RegExp(
-              "---" + lang + "---\\s*([\\s\\S]*?)(?=---\\w+---|$)",
-              "i",
-            ),
-          );
+        const get = (re) => {
+          const m = decoded.match(re);
           return m ? m[1].trim() : "";
-        }
-
-        const h = get("html");
-        const c = get("css");
-        const j = get("js");
+        };
+        const h = get(/---html---\s*([\s\S]*?)(?=---\w+---|$)/i);
+        const c = get(/---css---\s*([\s\S]*?)(?=---\w+---|$)/i);
+        const j = get(/---js---\s*([\s\S]*?)(?=---\w+---|$)/i);
 
         // Escape brackets for all languages to prevent the browser from rendering raw DOM nodes inside the div
         const safeH = h.replace(/</g, "&lt;").replace(/>/g, "&gt;");

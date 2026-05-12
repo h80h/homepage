@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const main = document.querySelector("main");
   if (main) {
     let stackCount = 0;
-    const MAX_STACK = 66;
+    const MAX_STACK = 37;
     const SHOW_SWEEP_AT = 6;
 
     const sweepBtn = document.getElementById("sweep-btn");
@@ -34,6 +34,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const spawnLeaf = () => {
+      // Skip spawning while tab is hidden to avoid accumulating invisible nodes
+      if (document.hidden) return;
+
       const footer = document.querySelector("footer");
       const floorPadding = footer ? footer.offsetHeight : 130;
 
@@ -45,8 +48,9 @@ window.addEventListener("DOMContentLoaded", () => {
       el.style.left = leftPct + "%";
       el.style.fontSize = 12 + Math.random() * 8 + "px";
 
-      // Travel to just above the 150px padding floor
-      const distance = main.scrollHeight - floorPadding;
+      // Cache scrollHeight to avoid repeated forced reflows
+      const scrollHeight = main.scrollHeight;
+      const distance = scrollHeight - floorPadding + 8;
       const speed = 10 + Math.random() * 30;
       const duration = distance / speed;
 
@@ -66,14 +70,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
       main.appendChild(el);
 
-      el.addEventListener("animationend", (e) => {
+      const onAnimationEnd = (e) => {
         if (e.animationName !== "leaf-fall") return;
         // Read the actual rendered position at the moment of landing, before removing
         const rect = el.getBoundingClientRect();
         const mainRect = main.getBoundingClientRect();
-        const landedLeft = rect.left - mainRect.left;
+        const landedLeft = rect.left - mainRect.left + 5;
         const finalRotation = el.style.getPropertyValue("--leaf-rotation");
 
+        // Remove listener before removing element to release the closure
+        el.removeEventListener("animationend", onAnimationEnd);
         el.remove();
         if (stackCount >= MAX_STACK) return;
 
@@ -84,16 +90,39 @@ window.addEventListener("DOMContentLoaded", () => {
         resting.style.left = landedLeft + "px";
 
         resting.style.transform = `rotate(${finalRotation})`;
-        // All leaves land at the floor, tiny random vertical nudge (±2px) for natural scatter
-        resting.style.bottom = floorPadding  + "px";
+        
+        resting.style.bottom = floorPadding + "px";
         main.appendChild(resting);
         stackCount++;
         updateSweepBtn();
-      });
+      };
+
+      el.addEventListener("animationend", onAnimationEnd);
     };
 
-    // for (let i = 0; i < 6; i++) setTimeout(spawnLeaf, Math.random() * 8000);
-    setInterval(spawnLeaf, 10000);
+    // Pause interval while tab is hidden, resume when visible
+    let leafInterval = null;
+
+    const startLeafInterval = () => {
+      if (leafInterval !== null) return;
+      leafInterval = setInterval(spawnLeaf, 10000);
+    };
+
+    const stopLeafInterval = () => {
+      if (leafInterval === null) return;
+      clearInterval(leafInterval);
+      leafInterval = null;
+    };
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopLeafInterval();
+      } else {
+        startLeafInterval();
+      }
+    });
+
+    startLeafInterval();
   }
 
   // Make markdown task-list checkboxes interactive

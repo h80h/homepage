@@ -1,0 +1,27 @@
+---
+title: "the uses"
+category_name: "root"
+layout: "blog-layout.html"
+permalink: /uses/index.html
+---
+<div class="blog-nav">
+  <a href="/about/">about</a>
+  <a>uses</a>
+  <a>links</a>
+</div>
+
+<p>
+  Here are the uses in my daily:
+</p>
+
+<div class="edited-time-of-root-pages">
+  {% set gitFirst = page.inputPath | gitFirstCommit %}
+  {% set gitLast = page.inputPath | gitLastModified %}
+  {% if gitFirst and gitLast and gitFirst != gitLast %}
+  <p class="edited-date">Last edited: {{ gitLast }} <span class="info-toggle" title="show publish date"
+      aria-label="show publish date">𝒾</span></p>
+  <p class="date" hidden>{{ gitFirst }}</p>
+  {% else %}
+  <p class="date">{{ gitFirst or (page.date | postDate) }}</p>
+  {% endif %}
+</div>
