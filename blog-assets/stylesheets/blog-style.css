@@ -144,11 +144,13 @@
 
   #uses-container {
     flex-direction: column;
+    gap: 32px;
   }
 }
 
-/* @media(max-width: 640px) {
-} */
+@media(max-width: 640px) {
+  
+}
 
 @media (prefers-color-scheme: dark) {
 

@@ -751,7 +751,7 @@ footer {
   border-color: rgba(13, 49, 75, 0.6);
 }
 
-@media(max-width: 834px) {
+@media(max-width: 640px) {
   #sweep-btn {
     left: 13px;
     bottom: 160px;
