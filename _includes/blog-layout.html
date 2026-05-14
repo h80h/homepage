@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>{% if title !== "hedi's blog" %}{{ title }} • {% endif %}hedi's blog</title>
   <link rel="preload" href="/fonts/barlow_condensedregular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jbmono.woff2" as="font" type="font/woff2" crossorigin>
@@ -51,7 +50,7 @@
   <footer>
     <ul id="footer-container">
       <li>hedi's blog has <a href="/feed.xml" target="_blank">feed.xml</a></li>
-      <li>explore more by visiting the <a href="https://h80h.xyz" target="_blank">homepage</a></li>
+      <li>explore more by visiting the <a href="https://h80h.xyz">homepage</a></li>
       <li>contact me: hi@h80h.xyz</li>
       <div id="theme-toggle">
         <span id="light-theme-symbol" title="switch-to-light-mode">𖤓</span>
@@ -66,7 +65,7 @@
     </ul>
   </footer>
   <script src="/pagefind/pagefind-ui.js"></script>
-  <script src="/blog-assets/share.js"></script>
+  <script src="/blog-assets/share.js?v={{ build.timestamp }}"></script>
 
 </body>
 

@@ -104,6 +104,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("fonts/*.woff2");
 
   eleventyConfig.setDataDeepMerge(true);
+  eleventyConfig.addGlobalData("build", { timestamp: Date.now() });
 
   const gitDateCache = {};
   const getGitDates = (filePath) => {
@@ -503,6 +504,7 @@ module.exports = function (eleventyConfig) {
         '      return "<style>"+scrollbarCSS+c+"<\\/style>"+h+"<scr"+"ipt>"+j+"<\\/scr"+"ipt>";',
         "    }",
         "    function render(){frame.srcdoc=getDoc();}",
+        "    document.addEventListener('visibilitychange',function(){ if(document.hidden){ frame.srcdoc=''; } else { render(); } });",
         "    function editorVisible(){ return !editorWrap.classList.contains('pg-hidden'); }",
         "    function previewVisible(){ return !preview.classList.contains('pg-hidden'); }",
         "    function showEditorOnly(){",

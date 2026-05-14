@@ -108,6 +108,30 @@
   justify-content: center;
 }
 
+/* uses */
+#uses-container {
+  display: flex;
+  gap: 16px;
+}
+
+#uses-container div {
+  flex: 1;
+}
+
+.uses-scenario {
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.uses-category {
+  font-weight: bold;
+}
+
+#uses-container ul {
+  list-style-type: circle;
+  list-style-position: inside;
+}
+
 @media(max-width: 820px) {
   .category {
     font-size: 11px;
@@ -116,6 +140,10 @@
 
   .read-more {
     margin: 30px 0;
+  }
+
+  #uses-container {
+    flex-direction: column;
   }
 }
 

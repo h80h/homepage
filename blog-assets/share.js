@@ -139,6 +139,14 @@ window.addEventListener("DOMContentLoaded", () => {
     img.src = img.dataset.src;
   });
 
+  // Open external links in a new tab
+  document.querySelectorAll("a[href]").forEach((a) => {
+    if (a.hostname && a.hostname !== location.hostname) {
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener noreferrer");
+    }
+  });
+
   new PagefindUI({
     element: "#search",
     showSubResults: true,
@@ -217,6 +225,8 @@ window.addEventListener("DOMContentLoaded", () => {
     "don't forget to drink water!",
     "i hope you're having a cozy day",
     "click current page on breadcrumb nav will scroll to top",
+    "remember to sweep the leaves on the floor, in this blog",
+    "like you'll have to tidy up your spaces once for a while",
   ];
 
   let dialogueTimer = null;
