@@ -496,7 +496,7 @@ module.exports = function (eleventyConfig) {
         '      var mode = lang === "js" ? "javascript" : lang;',
         '      editor.session.setMode("ace/mode/" + mode);',
         "      editor.setTheme(getAceTheme());",
-        "      editor.setOptions({ useWorker: false, showPrintMargin: false, highlightActiveLine: false });",
+        "      editor.setOptions({ useWorker: false, showPrintMargin: false, highlightActiveLine: false, tabSize: 2, useSoftTabs: true });",
         "      editor.renderer.setPadding(10);",
         '      editor.session.on("change", function(){',
         "        clearTimeout(timer); timer=setTimeout(render,400);",

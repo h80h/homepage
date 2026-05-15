@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
       el.className = "leaf";
       el.textContent =
         leafSymbols[Math.floor(Math.random() * leafSymbols.length)];
-      const leftPct = Math.random() * 96;
+      const leftPct = Math.random() * 93;
       el.style.left = leftPct + "%";
       const fontSize = 12 + Math.random() * 8;
       el.style.fontSize = fontSize + "px";

@@ -692,7 +692,7 @@ footer {
   top: -2em;
   pointer-events: none;
   opacity: 0;
-  z-index: 0;
+  z-index: 99;
   animation: leaf-fall linear forwards, leaf-sway ease-in-out infinite;
   animation-duration: var(--leaf-duration), var(--leaf-sway-period);
 }
@@ -728,7 +728,7 @@ footer {
   position: absolute;
   pointer-events: none;
   opacity: 0.6;
-  z-index: 0;
+  z-index: 99;
 }
 
 /* Sweep button */
