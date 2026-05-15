@@ -10,10 +10,23 @@ layout: "blog-layout.html"
 </div>
 
 <ul class="post-list">
-  {# This loops through EVERY post in the 'posts' collection #}
+  {# This loops through EVERY post in the 'posts' collection, pinned posts first #}
+  {% set sortedPosts = [] %}
   {% for post in collections.posts %}
+    {% if "pinned" in (post.data.tags or []) %}
+      {% set sortedPosts = sortedPosts.concat([post]) %}
+    {% endif %}
+  {% endfor %}
+  {% for post in collections.posts %}
+    {% if "pinned" not in (post.data.tags or []) %}
+      {% set sortedPosts = sortedPosts.concat([post]) %}
+    {% endif %}
+  {% endfor %}
+  {% for post in sortedPosts %}
     <li class="post-item">
-      {% if post.data.category_name == "hedi's coding" %}
+      {% if post.data.category_name == "pinned" %}
+        <a class="category category--pinned" href="/pinned/">Pinned</a>
+      {% elif post.data.category_name == "hedi's coding" %}
         <a class="category category--code" href="/code/">CODE!</a>
       {% elif post.data.category_name == "hedi's daily" %}
         <a class="category category--daily" href="/daily/">DAILY</a>

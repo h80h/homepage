@@ -195,7 +195,11 @@ module.exports = function (eleventyConfig) {
     const dateB =
       getGitDates(b.inputPath).first ||
       (b.date ? b.date.toISOString().slice(0, 10) : "");
-    return dateA < dateB ? 1 : dateA > dateB ? -1 : 0;
+    if (dateA !== dateB) return dateA < dateB ? 1 : -1;
+    // Same date (git or fallback): sort by post-id descending (higher id listed first)
+    const idA = a.data["post-id"] ?? -Infinity;
+    const idB = b.data["post-id"] ?? -Infinity;
+    return idA < idB ? 1 : idA > idB ? -1 : 0;
   };
 
   // POSTS COLLECTION sorted by git first commit date, newest first
@@ -207,6 +211,9 @@ module.exports = function (eleventyConfig) {
   );
   eleventyConfig.addCollection("hedi-s-daily-sorted", (collectionApi) =>
     collectionApi.getFilteredByTag("hedi-s-daily").sort(byGitFirst),
+  );
+  eleventyConfig.addCollection("pinned-sorted", (collectionApi) =>
+    collectionApi.getFilteredByTag("pinned").sort(byGitFirst),
   );
 
   // CONTENT PREVIEW FILTER
