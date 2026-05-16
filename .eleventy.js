@@ -458,6 +458,7 @@ module.exports = function (eleventyConfig) {
       ".ace-kuroir .ace_markup.ace_heading{color:rgb(12,7,255) !important;background-color:transparent !important;}",
       ".ace-kuroir .ace_markup.ace_list{color:rgb(185,6,144) !important;}",
       ".ace-kuroir .ace_invalid{background-color:rgb(153,0,0) !important;color:white !important;}",
+      "@media(max-width:450px){.ace_options-block{display:none !important;}}",
       "</style>",
     ].join("");
 
